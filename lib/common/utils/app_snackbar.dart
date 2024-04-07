@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Customized Material Snackbar
 class AppSnackbar {
   final String msg;
 

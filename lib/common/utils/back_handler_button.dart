@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+/// 앱 뒤로가기 종료 처리
 class BackHandlerButton {
   DateTime? lastPressed;
 

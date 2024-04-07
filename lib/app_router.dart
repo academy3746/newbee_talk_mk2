@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:newbee_talk_mk2/features/main/views/main_screen.dart';
 import 'package:newbee_talk_mk2/features/splash/views/splash_screen.dart';
 
+/// Project Root Router Class
 class AppRouter {
   late String page;
 
