@@ -17,7 +17,7 @@ class MainScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () {
         if (back != null) {
-          return back.onWillPop(context);
+          return back.onWillPop();
         }
 
         return Future.value(false);
