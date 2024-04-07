@@ -42,6 +42,7 @@ class TalkApp extends StatelessWidget {
         primaryColor: Colors.lightBlueAccent,
         useMaterial3: true,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'PretendardStatic',
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: SplashScreen.routeName,

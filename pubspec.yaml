@@ -42,3 +42,21 @@ flutter:
   assets:
     - assets/images/
     - .env
+    - assets/fonts/
+
+  fonts:
+    - family: PretendardStatic
+      fonts:
+        - asset: assets/fonts/pretendard_static/Pretendard-Black.ttf
+        - asset: assets/fonts/pretendard_static/Pretendard-Bold.ttf
+        - asset: assets/fonts/pretendard_static/Pretendard-ExtraBold.ttf
+        - asset: assets/fonts/pretendard_static/Pretendard-ExtraLight.ttf
+        - asset: assets/fonts/pretendard_static/Pretendard-Light.ttf
+        - asset: assets/fonts/pretendard_static/Pretendard-Medium.ttf
+        - asset: assets/fonts/pretendard_static/Pretendard-Regular.ttf
+        - asset: assets/fonts/pretendard_static/Pretendard-SemiBold.ttf
+        - asset: assets/fonts/pretendard_static/Pretendard-Thin.ttf
+
+    - family: PretendardVariable
+      fonts:
+        - asset: assets/fonts/pretendard_variable/PretendardVariable.ttf
