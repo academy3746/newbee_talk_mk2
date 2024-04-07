@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:newbee_talk_mk2/common/utils/back_handler_button.dart';
+import 'package:newbee_talk_mk2/common/widgets/back_handler_button.dart';
 
 class MainCont extends GetxController {
   static MainCont get to => Get.find<MainCont>();
