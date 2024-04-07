@@ -10,9 +10,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cont = MainCont.to;
-
-    final back = cont.backHandlerButton;
+    final back = MainCont.to.backHandlerButton;
 
     return WillPopScope(
       onWillPop: () {
@@ -24,8 +22,12 @@ class MainScreen extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Container(),
+        body: _buildBody(context),
       ),
     );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    return Container();
   }
 }
