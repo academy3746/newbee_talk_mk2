@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newbee_talk_mk2/common/constant/sizes.dart';
 
+/// Project Common Button
 class CommonButton extends StatelessWidget {
   const CommonButton({
     super.key,

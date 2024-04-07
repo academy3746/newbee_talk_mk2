@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Project Common Section Text
 class CommonText extends StatelessWidget {
   const CommonText({
     super.key,
