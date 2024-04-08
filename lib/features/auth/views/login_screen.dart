@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:newbee_talk_mk2/app_router.dart';
 import 'package:newbee_talk_mk2/common/constant/gaps.dart';
 import 'package:newbee_talk_mk2/common/constant/sizes.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_button.dart';
@@ -20,15 +21,13 @@ class LoginScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () {
         if (back != null) {
-          back.onWillPop();
+          return back.onWillPop();
         }
 
         return Future.value(false);
       },
       child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
+        onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           backgroundColor: Colors.white,
@@ -122,7 +121,9 @@ class LoginScreen extends StatelessWidget {
                   btnText: '로그인',
                   textColor: Colors.white,
                   btnBackgroundColor: Colors.black,
-                  btnAction: () {},
+                  btnAction: () {
+                    /// Todo: Complete this Auth Logic
+                  },
                 ),
               ),
               Gaps.v16,
@@ -135,7 +136,7 @@ class LoginScreen extends StatelessWidget {
                   btnText: '회원가입',
                   textColor: Colors.white,
                   btnBackgroundColor: const Color(0xFFFDD835),
-                  btnAction: () {},
+                  btnAction: () => AppRouter.signUp().to(),
                 ),
               ),
             ],
