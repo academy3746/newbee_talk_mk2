@@ -13,8 +13,8 @@ class SplashCont extends GetxController {
 
   /// Login Flag
   void onBoardNavigate() {
-    Future.delayed(const Duration(seconds: 3), () {
-      AppRouter.main().off();
+    Future.delayed(const Duration(seconds: 2), () {
+      AppRouter.login().off();
     });
   }
 }
