@@ -1,4 +1,5 @@
-class Favorite {
+/// Favorite Model Class
+class FavoriteModel {
   final int? id;
 
   final int foodStoreId;
@@ -7,7 +8,7 @@ class Favorite {
 
   final DateTime? createdAt;
 
-  Favorite({
+  FavoriteModel({
     this.id,
     required this.foodStoreId,
     required this.favoriteUid,
@@ -21,8 +22,8 @@ class Favorite {
     };
   }
 
-  factory Favorite.fromJson(Map<String, dynamic> data) {
-    return Favorite(
+  factory FavoriteModel.fromJson(Map<String, dynamic> data) {
+    return FavoriteModel(
       id: data['id'],
       foodStoreId: data['food_store_id'],
       favoriteUid: data['favorite_uid'],

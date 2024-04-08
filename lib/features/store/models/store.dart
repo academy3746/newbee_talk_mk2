@@ -1,4 +1,5 @@
-class FoodStore {
+/// Store Model Class
+class FoodStoreModel {
   final int? id;
 
   final String? storeImgUrl;
@@ -17,7 +18,7 @@ class FoodStore {
 
   final DateTime? createdAt;
 
-  FoodStore({
+  FoodStoreModel({
     this.id,
     required this.storeImgUrl,
     required this.storeAddress,
@@ -41,8 +42,8 @@ class FoodStore {
     };
   }
 
-  factory FoodStore.fromJson(Map<String, dynamic> data) {
-    return FoodStore(
+  factory FoodStoreModel.fromJson(Map<String, dynamic> data) {
+    return FoodStoreModel(
       id: data['id'],
       storeImgUrl: data['store_img_url'],
       storeAddress: data['store_address'],
