@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newbee_talk_mk2/common/widgets/back_handler_button.dart';
-import 'package:newbee_talk_mk2/features/main/views/favorite_screen.dart';
+import 'package:newbee_talk_mk2/features/main/views/like_screen.dart';
 import 'package:newbee_talk_mk2/features/main/views/map_screen.dart';
 import 'package:newbee_talk_mk2/features/main/views/user_info_screen.dart';
 
@@ -39,7 +39,7 @@ class MainCont extends GetxController {
 
     _screenList([
       const MapScreen(),
-      const FavoriteScreen(),
+      const LikeScreen(),
       const UserInfoScreen(),
     ]);
   }

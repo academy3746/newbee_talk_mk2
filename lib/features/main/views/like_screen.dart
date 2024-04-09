@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:newbee_talk_mk2/common/constant/sizes.dart';
 
-class FavoriteScreen extends StatelessWidget {
-  const FavoriteScreen({super.key});
+class LikeScreen extends StatelessWidget {
+  const LikeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class FavoriteScreen extends StatelessWidget {
           child: TextButton(
             onPressed: () {},
             child: const Text(
-              'Favorite Screen',
+              'Like Screen',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: Sizes.size38,
