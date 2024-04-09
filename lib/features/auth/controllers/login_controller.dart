@@ -56,7 +56,9 @@ class LoginCont extends GetxController {
     );
 
     if (res.user != null) {
-      var snackbar = AppSnackbar(msg: '오늘 하루도 화이팅 💕');
+      var snackbar = AppSnackbar(
+        msg: '오늘 하루도 화이팅 💕',
+      );
 
       AppRouter.main().offAll();
 
@@ -64,7 +66,9 @@ class LoginCont extends GetxController {
 
       success = true;
     } else {
-      var snackbar = AppSnackbar(msg: '잘못된 로그인 절차입니다!');
+      var snackbar = AppSnackbar(
+        msg: '잘못된 로그인 절차입니다!',
+      );
 
       snackbar.showSnackbar(Get.context!);
 

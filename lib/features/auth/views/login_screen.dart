@@ -80,14 +80,14 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
                 Gaps.v48,
+
+                /// cont.idCont
                 CommonText(
                   textContent: '이메일주소',
                   textColor: Colors.grey.shade500,
                   textSize: Sizes.size22,
                   textWeight: FontWeight.w700,
                 ),
-
-                /// cont.idCont
                 CommonTextField(
                   controller: cont.idCont,
                   readOnly: false,
@@ -98,14 +98,14 @@ class LoginScreen extends StatelessWidget {
                   textInputAction: TextInputAction.next,
                 ),
                 Gaps.v28,
+
+                /// cont.passwordCont
                 CommonText(
                   textContent: '패스워드',
                   textColor: Colors.grey.shade500,
                   textSize: Sizes.size22,
                   textWeight: FontWeight.w700,
                 ),
-
-                /// cont.passwordCont
                 CommonTextField(
                   controller: cont.passwordCont,
                   readOnly: false,
@@ -116,6 +116,8 @@ class LoginScreen extends StatelessWidget {
                   textInputAction: TextInputAction.go,
                 ),
                 Gaps.v28,
+
+                /// Login
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: Sizes.size58,
