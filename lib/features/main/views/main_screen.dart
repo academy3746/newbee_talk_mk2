@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:newbee_talk_mk2/common/constant/sizes.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/main_controller.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -37,28 +38,31 @@ class MainScreen extends StatelessWidget {
   Widget _buildBottomNavigationBar(BuildContext context) {
     final cont = MainCont.to;
 
-    return BottomNavigationBar(
-      currentIndex: cont.screenIndex,
-      backgroundColor: Theme.of(context).primaryColor,
-      showSelectedLabels: true,
-      showUnselectedLabels: true,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.black54,
-      onTap: (int value) => cont.screenSelected(value),
-      items: const [
-        BottomNavigationBarItem(
-          icon: FaIcon(FontAwesomeIcons.map),
-          label: 'MAP'
-        ),
-        BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.heart),
-            label: 'LIKE'
-        ),
-        BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.user),
-            label: 'MY'
-        ),
-      ],
+    return SizedBox(
+      height: Sizes.size64,
+      child: BottomNavigationBar(
+        currentIndex: cont.screenIndex,
+        backgroundColor: Colors.black87,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        selectedItemColor: const Color(0xFF1DE9B6),
+        unselectedItemColor: Colors.grey.shade300,
+        onTap: (int value) => cont.screenSelected(value),
+        items: const [
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.map),
+            label: 'MAP'
+          ),
+          BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.heart),
+              label: 'LIKE'
+          ),
+          BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.user),
+              label: 'MY'
+          ),
+        ],
+      ),
     );
   }
 }

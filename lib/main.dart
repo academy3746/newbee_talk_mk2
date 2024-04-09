@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:newbee_talk_mk2/app_router.dart';
 import 'package:newbee_talk_mk2/common/widgets/get_put.dart';
 import 'package:newbee_talk_mk2/features/splash/views/splash_screen.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
@@ -15,6 +16,13 @@ Future<void> main() async {
   await Supabase.initialize(
     url: dotenv.get('SUPABASE_URL'),
     anonKey: dotenv.get('SUPABASE_API_KEY'),
+  );
+
+  await NaverMapSdk.instance.initialize(
+    clientId: dotenv.get('NAVER_CLIENT_ID'),
+    onAuthFailed: (error) {
+      throw '${error.code}: ${error.message}';
+    }
   );
 
   SystemChrome.setSystemUIOverlayStyle(

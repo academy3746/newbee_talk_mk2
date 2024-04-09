@@ -51,6 +51,7 @@ class LoginScreen extends StatelessWidget {
             margin: const EdgeInsets.only(
               left: Sizes.size20,
               right: Sizes.size20,
+              bottom: Sizes.size20,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
