@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
@@ -45,15 +44,7 @@ class MainCont extends GetxController {
 
   /// Get My Location
   Future<NCameraPosition> _fetchLocation() async {
-    bool service;
-
     LocationPermission permission;
-
-    service = await Geolocator.isLocationServiceEnabled();
-
-    if (service == false) {
-      return Future.error('Geolocator Service Disabled!');
-    }
 
     permission = await Geolocator.checkPermission();
 
