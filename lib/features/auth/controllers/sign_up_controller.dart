@@ -156,7 +156,7 @@ class SignUpCont extends GetxController {
             name: nameCont.text,
             email: email,
             introduce: introCont.text,
-            profileUrl: imgUrl,
+            profileUrl: profileImg != null ? imgUrl : '',
             uid: res.user!.id,
           ).toMap());
 
