@@ -59,7 +59,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
 
                 /// FormField
-                _formField(),
+                _formField(context),
               ],
             ),
           ),
@@ -68,6 +68,7 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
+  /// Profile Img Post Widget
   Widget _buildProfile() {
     SignUpCont cont = SignUpCont.to;
 
@@ -94,6 +95,7 @@ class SignUpScreen extends StatelessWidget {
     }
   }
 
+  /// PopUp Bottom Modal Sheet Bar
   Widget _showImageUploadBottomSheet() {
     SignUpCont cont = SignUpCont.to;
 
@@ -160,7 +162,8 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Widget _formField() {
+  /// Register FormField
+  Widget _formField(BuildContext context) {
     SignUpCont cont = SignUpCont.to;
 
     return Form(
@@ -284,8 +287,10 @@ class SignUpScreen extends StatelessWidget {
               btnBackgroundColor: Colors.black,
               textColor: Colors.white,
               btnAction: () {
-                /// Todo: Complete this Auth Logic
-                Get.back();
+                cont.signUpWithEmail(
+                  cont.mailCont.text,
+                  cont.passwordCont.text,
+                );
               },
             ),
           ),

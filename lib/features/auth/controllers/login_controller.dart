@@ -19,7 +19,7 @@ class LoginCont extends GetxController {
   final _formKey = GlobalKey<FormState>().obs;
 
   /// Text InputField Validator Class
-  final _val = InputFieldValidator();
+  final _validation = InputFieldValidator();
 
   /// Getter (_backHandlerButton)
   BackHandlerButton? get backHandlerButton => _backHandlerButton;
@@ -34,14 +34,12 @@ class LoginCont extends GetxController {
   GlobalKey<FormState> get formKey => _formKey.value;
 
   /// Getter (_val)
-  InputFieldValidator get val => _val;
+  InputFieldValidator get validation => _validation;
 
   @override
   void onInit() {
     super.onInit();
 
-    backHandlerButton;
-
-    val;
+    validation;
   }
 }
