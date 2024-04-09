@@ -38,8 +38,8 @@ class TalkApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Talk App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        primaryColor: Colors.lightBlueAccent,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+        primaryColor: const Color(0xFFFDD835),
         useMaterial3: true,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'PretendardStatic',
