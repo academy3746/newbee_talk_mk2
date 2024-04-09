@@ -14,11 +14,7 @@ class SplashCont extends GetxController {
 
   /// Login Flag
   void _onBoardNavigate() {
-    Future.delayed(const Duration(seconds: 2), () {
-      AppRouter.login().off();
-    });
-
-    /*if (dao.auth.currentUser == null) {
+    if (dao.auth.currentUser == null) {
       Future.delayed(const Duration(seconds: 2), () {
         AppRouter.login().off();
       });
@@ -26,7 +22,7 @@ class SplashCont extends GetxController {
       Future.delayed(const Duration(seconds: 2), () {
         AppRouter.main().off();
       });
-    }*/
+    }
   }
 
   @override
