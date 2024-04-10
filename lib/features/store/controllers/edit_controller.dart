@@ -188,6 +188,14 @@ class EditCont extends GetxController {
             longitude: longitude,
           ).toMap());
 
+      deleteImage();
+
+      _addrCont.value.clear();
+
+      _nameCont.value.clear();
+
+      _infoCont.value.clear();
+
       var snackBar = AppSnackbar(
         msg: '플레이스가 정상적으로 등록되었어요! 💕',
       );
