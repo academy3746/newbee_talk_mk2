@@ -181,7 +181,7 @@ class EditCont extends GetxController {
       double longitude = double.parse(json['addresses'][0]['x']);
 
       await dao.from('food_store').insert(FoodStoreModel(
-            storeImgUrl: storeImgUrl,
+            storeImgUrl: storeImgFile != null ? storeImgUrl : '',
             storeAddress: addrCont.text,
             storeName: nameCont.text,
             storeInfo: infoCont.text,
