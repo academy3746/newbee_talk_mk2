@@ -160,6 +160,18 @@ class SignUpCont extends GetxController {
             uid: res.user!.id,
           ).toMap());
 
+      _profileImg.value = null;
+
+      _nameCont.value.clear();
+
+      _mailCont.value.clear();
+
+      _passwordCont.value.clear();
+
+      _pwdReCont.value.clear();
+
+      _introCont.value.clear();
+
       var snackbar = AppSnackbar(
         msg: '뉴비톡톡과 함께 해줘서 기뻐요 💕',
       );
@@ -175,6 +187,8 @@ class SignUpCont extends GetxController {
       );
 
       snackbar.showSnackbar(Get.context!);
+
+      Get.back();
 
       success = false;
     }
