@@ -174,6 +174,16 @@ class EditCont extends GetxController {
     if (apiRes.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(apiRes.body);
 
+      if (json['meta']['totalCount'] == 0) {
+        var snackBar = AppSnackbar(
+          msg: '현재 위치 값에 오류가 있는 것 같습니다! 다른 주소로 검색해 주세요 😂',
+        );
+
+        snackBar.showSnackbar(Get.context!);
+
+        return false;
+      }
+
       double latitude = double.parse(json['addresses'][0]['y']);
 
       double longitude = double.parse(json['addresses'][0]['x']);
@@ -188,7 +198,7 @@ class EditCont extends GetxController {
             longitude: longitude,
           ).toMap());
 
-      deleteImage();
+      _storeImgFile.value = null;
 
       _addrCont.value.clear();
 
