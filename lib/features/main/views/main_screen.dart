@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:newbee_talk_mk2/app_router.dart';
 import 'package:newbee_talk_mk2/common/constant/sizes.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/main_controller.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,13 +30,14 @@ class MainScreen extends StatelessWidget {
         () => Scaffold(
           backgroundColor: Colors.white,
           body: cont.screenList.elementAt(cont.screenIndex),
-          bottomNavigationBar: _buildBottomNavigationBar(context),
+          bottomNavigationBar: _buildBottomNavigationBar(),
+          floatingActionButton: _buildFloatingActionButton(),
         ),
       ),
     );
   }
 
-  Widget _buildBottomNavigationBar(BuildContext context) {
+  Widget _buildBottomNavigationBar() {
     final cont = MainCont.to;
 
     return SizedBox(
@@ -51,18 +53,31 @@ class MainScreen extends StatelessWidget {
         items: const [
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.map),
-            label: 'MAP'
+            label: 'MAP',
           ),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.heart),
-              label: 'LIKE'
+            icon: FaIcon(FontAwesomeIcons.heart),
+            label: 'LIKE',
           ),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.user),
-              label: 'MY'
+            icon: FaIcon(FontAwesomeIcons.user),
+            label: 'MY',
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildFloatingActionButton() {
+    return FloatingActionButton(
+      backgroundColor: Colors.black87,
+      shape: const CircleBorder(),
+      child: Icon(
+        Icons.add,
+        color: Colors.grey.shade200,
+        size: Sizes.size32,
+      ),
+      onPressed: () => AppRouter.edit().to(),
     );
   }
 }

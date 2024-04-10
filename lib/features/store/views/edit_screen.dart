@@ -6,29 +6,30 @@ import 'package:newbee_talk_mk2/common/widgets/common_app_bar.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_button.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_text.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_text_field.dart';
-import 'package:newbee_talk_mk2/features/auth/controllers/sign_up_controller.dart';
+import 'package:newbee_talk_mk2/features/store/controllers/edit_controller.dart';
+import 'package:newbee_talk_mk2/features/store/views/post_screen.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+class EditScreen extends StatelessWidget {
+  const EditScreen({super.key});
 
-  static const String routeName = '/signup';
+  static const String routeName = '/edit';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: _buildAppBar(),
+      backgroundColor: Colors.white,
       body: _buildPageBody(context),
     );
   }
 
   PreferredSizeWidget _buildAppBar() {
-    return const CommonAppBar(
-      title: '회원가입',
+    return CommonAppBar(
+      title: '플레이스 등록',
       implyLeading: true,
-      backgroundColor: Colors.white,
-      iconColor: Colors.black,
-      fontColor: Colors.black,
+      backgroundColor: Colors.black87,
+      iconColor: Colors.grey.shade200,
+      fontColor: Colors.grey.shade200,
     );
   }
 
@@ -47,19 +48,16 @@ class SignUpScreen extends StatelessWidget {
             () => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// Handling Image
                 GestureDetector(
+                  child: _storeImage(context),
                   onTap: () {
                     showModalBottomSheet(
                       context: context,
                       builder: (context) => _showImageUploadBottomSheet(),
                     );
                   },
-                  child: _buildProfile(),
                 ),
-
-                /// FormField
-                _formField(context),
+                _editFormField(),
               ],
             ),
           ),
@@ -68,36 +66,41 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  /// Profile Img Post Widget
-  Widget _buildProfile() {
-    SignUpCont cont = SignUpCont.to;
+  /// Image Upload Area UI
+  Widget _storeImage(BuildContext context) {
+    EditCont cont = EditCont.to;
 
-    if (cont.profileImg == null) {
-      return Center(
-        child: CircleAvatar(
-          backgroundColor: Colors.grey.shade400,
-          radius: Sizes.size48,
-          child: const Icon(
-            Icons.add_a_photo,
-            color: Colors.white,
-            size: Sizes.size48,
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: Sizes.size200 + Sizes.size30,
+      decoration: ShapeDecoration(
+        color: cont.storeImgFile == null ? Colors.black87 : Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Sizes.size4),
+          side: BorderSide(
+            width: cont.storeImgFile == null ? 1 : 2,
+            color: cont.storeImgFile == null
+                ? Colors.grey.shade200
+                : Colors.black87,
           ),
         ),
-      );
-    } else {
-      return Center(
-        child: CircleAvatar(
-          backgroundColor: Colors.grey.shade400,
-          radius: Sizes.size48,
-          backgroundImage: FileImage(cont.profileImg!),
-        ),
-      );
-    }
+      ),
+      child: cont.storeImgFile == null
+          ? Icon(
+              Icons.image_search_outlined,
+              size: Sizes.size96,
+              color: Colors.grey.shade200,
+            )
+          : Image.file(
+              cont.storeImgFile!,
+              fit: BoxFit.cover,
+            ),
+    );
   }
 
   /// PopUp Bottom Modal Sheet Bar
   Widget _showImageUploadBottomSheet() {
-    SignUpCont cont = SignUpCont.to;
+    EditCont cont = EditCont.to;
 
     return Container(
       color: Colors.transparent,
@@ -162,136 +165,86 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  /// Register FormField
-  Widget _formField(BuildContext context) {
-    SignUpCont cont = SignUpCont.to;
+  /// Multi FormField Area UI
+  Widget _editFormField() {
+    EditCont cont = EditCont.to;
 
     return Form(
       key: cont.formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Gaps.v40,
+          Gaps.v28,
 
-          /// cont.nameCont
-          CommonText(
-            textContent: '이름',
+          /// Store Location
+          const CommonText(
+            textContent: '플레이스 위치 (도로명 주소)',
             textSize: Sizes.size20,
-            textColor: Colors.grey.shade500,
+            textWeight: FontWeight.w600,
+          ),
+          CommonTextField(
+            controller: cont.addrCont,
+            hintText: '탭하여 주소를 선택해 주세요',
+            readOnly: true,
+            obscureText: false,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.streetAddress,
+            maxLines: 1,
+            validator: (value) => cont.validation.plainValidation(value),
+            onTap: () async {
+              var result = await Get.toNamed(PostScreen.routeName);
+
+              if (result != null) {
+                cont.setPostCodeState(result);
+              }
+            },
+          ),
+          Gaps.v28,
+
+          /// Store Name
+          const CommonText(
+            textContent: '플레이스 명칭',
+            textSize: Sizes.size20,
             textWeight: FontWeight.w600,
           ),
           CommonTextField(
             controller: cont.nameCont,
+            hintText: '장소명이 어떻게 되나요?',
             readOnly: false,
             obscureText: false,
             maxLines: 1,
-            maxLength: 15,
-            keyboardType: TextInputType.name,
             textInputAction: TextInputAction.next,
-            enabled: true,
-            onTap: null,
-            hintText: '이름을 입력해 주세요',
-            validator: (value) => cont.validation.nameValidation(value),
+            validator: (value) => cont.validation.plainValidation(value),
           ),
+          Gaps.v28,
 
-          /// cont.mailCont
-          CommonText(
-            textContent: '이메일주소',
+          /// Store Description
+          const CommonText(
+            textContent: '플레이스 설명',
             textSize: Sizes.size20,
-            textColor: Colors.grey.shade500,
             textWeight: FontWeight.w600,
           ),
           CommonTextField(
-            controller: cont.mailCont,
-            readOnly: false,
-            obscureText: false,
-            maxLines: 1,
-            maxLength: 50,
-            keyboardType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.next,
-            enabled: true,
-            onTap: null,
-            hintText: '이메일 주소를 입력해 주세요',
-            validator: (value) => cont.validation.emailValidation(value),
-          ),
-
-          /// cont.passwordCont
-          CommonText(
-            textContent: '패스워드',
-            textSize: Sizes.size20,
-            textColor: Colors.grey.shade500,
-            textWeight: FontWeight.w600,
-          ),
-          CommonTextField(
-            controller: cont.passwordCont,
-            readOnly: false,
-            obscureText: true,
-            maxLines: 1,
-            maxLength: 25,
-            keyboardType: TextInputType.visiblePassword,
-            textInputAction: TextInputAction.next,
-            enabled: true,
-            onTap: null,
-            hintText: '패스워드를 입력해 주세요',
-            validator: (value) => cont.validation.pwdValidation(value),
-          ),
-
-          /// cont.pwdReCont
-          CommonText(
-            textContent: '패스워드 확인',
-            textSize: Sizes.size20,
-            textColor: Colors.grey.shade500,
-            textWeight: FontWeight.w600,
-          ),
-          CommonTextField(
-            controller: cont.pwdReCont,
-            readOnly: false,
-            obscureText: true,
-            maxLines: 1,
-            maxLength: 25,
-            keyboardType: TextInputType.visiblePassword,
-            textInputAction: TextInputAction.next,
-            enabled: true,
-            onTap: null,
-            hintText: '패스워드를 한 번 더 입력해 주세요',
-            validator: (value) => cont.validation.confirmValidation(value),
-          ),
-
-          /// cont.introCont
-          CommonText(
-            textContent: '자기소개',
-            textSize: Sizes.size20,
-            textColor: Colors.grey.shade500,
-            textWeight: FontWeight.w600,
-          ),
-          CommonTextField(
-            controller: cont.introCont,
+            controller: cont.infoCont,
+            hintText: '이곳은 어떤 곳이죠?\n간략하게 설명 부탁드릴게요 😌',
             readOnly: false,
             obscureText: false,
             maxLines: 5,
             maxLength: 500,
             textInputAction: TextInputAction.newline,
-            enabled: true,
-            onTap: null,
-            hintText: '자기소개를 입력해 주세요',
-            validator: (value) => cont.validation.introValidation(value),
+            validator: (value) => cont.validation.infoValidation(value),
           ),
+          Gaps.v28,
 
-          /// SignUp Complete
-          Container(
+          /// Post Article
+          SizedBox(
             width: double.infinity,
             height: Sizes.size64,
-            margin: const EdgeInsets.symmetric(vertical: Sizes.size16),
             child: CommonButton(
-              btnText: '가입 완료',
               btnBackgroundColor: Colors.black87,
+              btnText: '등록하기',
               textColor: Colors.grey.shade200,
-              btnAction: () {
-                cont.signUpWithEmail(
-                  cont.mailCont.text,
-                  cont.passwordCont.text,
-                );
-              },
+              btnAction: () => cont.postStoreData(),
             ),
           ),
         ],

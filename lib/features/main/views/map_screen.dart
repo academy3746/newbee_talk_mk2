@@ -9,47 +9,53 @@ class MapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: _buildPageBody(context),
+    );
+  }
+
+  Widget _buildPageBody(BuildContext context) {
     MapCont cont = MapCont.to;
 
-    return Scaffold(
-      body: FutureBuilder(
-        future: cont.fetchAllFoodStoreInfo(),
-        builder: (context, snapshot) {
-          var data = snapshot.data;
+    return FutureBuilder(
+      future: cont.fetchAllFoodStoreInfo(),
+      builder: (context, snapshot) {
+        var data = snapshot.data;
 
-          if (snapshot.hasError) {
-            return Center(
-              child: CommonText(
-                textContent: snapshot.error.toString(),
-                textSize: Sizes.size12,
-              ),
-            );
-          }
-
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
-            );
-          }
-
-          return NaverMap(
-            options: const NaverMapViewOptions(
-              indoorEnable: true,
-              locationButtonEnable: true,
-              consumeSymbolTapEvents: false,
+        if (snapshot.hasError) {
+          return Center(
+            child: CommonText(
+              textContent: snapshot.error.toString(),
+              textSize: Sizes.size12,
             ),
-            onMapReady: (mapCont) {
-              cont.onMapReady(mapCont);
-
-              cont.storeInfoWithMarkers(
-                mapCont,
-                data,
-                context,
-              );
-            },
           );
-        },
-      ),
+        }
+
+        if (!snapshot.hasData) {
+          return const Center(
+            child: CircularProgressIndicator.adaptive(),
+          );
+        }
+
+        return NaverMap(
+          options: const NaverMapViewOptions(
+            mapType: NMapType.terrain,
+            indoorEnable: true,
+            locationButtonEnable: true,
+            consumeSymbolTapEvents: false,
+          ),
+          onMapReady: (mapCont) {
+            cont.onMapReady(mapCont);
+
+            cont.storeInfoWithMarkers(
+              mapCont,
+              data,
+              context,
+            );
+          },
+        );
+      },
     );
   }
 }

@@ -41,7 +41,7 @@ class SignUpCont extends GetxController {
   final _introCont = TextEditingController().obs;
 
   /// Instances Supabse Authentication Access
-  final _dao = SupabaseDao.init;
+  final _dao = SupabaseService.init;
 
   /// Getter (_profileImg)
   File? get profileImg => _profileImg.value;
@@ -141,13 +141,13 @@ class SignUpCont extends GetxController {
 
         var path = 'profiles/${res.user!.id}_$now.jpg';
 
-        var uploadUrl = dao.storage.from('newbee_talk').getPublicUrl(path);
-
         await dao.storage.from('newbee_talk').upload(path, profileImg!,
             fileOptions: const FileOptions(
               cacheControl: '3600',
               upsert: true,
             ));
+
+        var uploadUrl = dao.storage.from('newbee_talk').getPublicUrl(path);
 
         _imgUrl(uploadUrl);
       }

@@ -18,8 +18,8 @@ class MapCont extends GetxController {
   /// Initialize Map Synchronize
   final _completer = Completer<NaverMapController>();
 
-  /// Instances Supabse DB Access
-  final _dao = SupabaseDao();
+  /// Instances Data Transfer Class
+  final _dto = SupabaseService();
 
   /// Instances Store List
   final _storeList = RxList<FoodStoreModel>();
@@ -28,7 +28,7 @@ class MapCont extends GetxController {
   Completer<NaverMapController> get completer => _completer;
 
   /// Getter (_dao)
-  SupabaseDao get dao => _dao;
+  SupabaseService get dto => _dto;
 
   /// Getter (_storeList)
   List<FoodStoreModel> get storeList => _storeList;
@@ -203,7 +203,7 @@ class MapCont extends GetxController {
 
   /// Fetch All Food Store Info
   Future<List<FoodStoreModel>> fetchAllFoodStoreInfo() async {
-    var res = await dao.fetchStoreInfo()!;
+    var res = await dto.fetchStoreInfo()!;
 
     return res;
   }

@@ -43,4 +43,22 @@ class InputFieldValidator {
 
     return null;
   }
+
+  /// 비어있는 필드값 검증
+  dynamic plainValidation(value) {
+    if (value.isEmpty) {
+      return '해당 필드는 반드시 작성해 주셔야 해요!';
+    }
+
+    return null;
+  }
+
+  /// 플레이스 소개란 글자수 검증
+  String? infoValidation(String? value) {
+    if (value == null || value.isEmpty) {
+      return '간단하게나마 소개를 부탁드릴게요 💕';
+    }
+
+    return null;
+  }
 }

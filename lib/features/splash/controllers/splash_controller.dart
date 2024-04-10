@@ -7,7 +7,7 @@ class SplashCont extends GetxController {
   static SplashCont get to => Get.find<SplashCont>();
 
   /// Instances Supabse DB Access
-  final _dao = SupabaseDao.init;
+  final _dao = SupabaseService.init;
 
   /// Getter (_dao)
   SupabaseClient get dao => _dao;

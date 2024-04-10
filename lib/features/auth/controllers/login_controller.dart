@@ -26,7 +26,7 @@ class LoginCont extends GetxController {
   final _validation = InputFieldValidator();
 
   /// Instances Supabse Authentication Access
-  final _dao = SupabaseDao.init;
+  final _dao = SupabaseService.init;
 
   /// Getter (_backHandlerButton)
   BackHandlerButton? get backHandlerButton => _backHandlerButton;

@@ -124,8 +124,8 @@ class LoginScreen extends StatelessWidget {
                   height: Sizes.size58,
                   child: CommonButton(
                     btnText: '로그인',
-                    textColor: Colors.white,
-                    btnBackgroundColor: Colors.black,
+                    textColor: Colors.grey.shade200,
+                    btnBackgroundColor: Colors.black87,
                     btnAction: () {
                       cont.loginWithEmail(
                         cont.idCont.text,
