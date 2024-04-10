@@ -40,7 +40,7 @@ class SignUpCont extends GetxController {
   /// Introduce InputField
   final _introCont = TextEditingController().obs;
 
-  /// Initialize Supabase Auth
+  /// Instances Supabse Authentication Access
   final _dao = SupabaseDao.init;
 
   /// Getter (_profileImg)

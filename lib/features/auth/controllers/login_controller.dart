@@ -25,7 +25,7 @@ class LoginCont extends GetxController {
   /// Text InputField Validator Class
   final _validation = InputFieldValidator();
 
-  /// Initialize Supabase Auth
+  /// Instances Supabse Authentication Access
   final _dao = SupabaseDao.init;
 
   /// Getter (_backHandlerButton)
@@ -49,6 +49,8 @@ class LoginCont extends GetxController {
   /// Login with Email Address
   Future<bool> loginWithEmail(String email, String password) async {
     var success = false;
+
+    if (!formKey.currentState!.validate()) return false;
 
     var res = await dao.auth.signInWithPassword(
       email: email,

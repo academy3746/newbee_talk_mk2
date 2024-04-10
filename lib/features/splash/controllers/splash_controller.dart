@@ -6,7 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class SplashCont extends GetxController {
   static SplashCont get to => Get.find<SplashCont>();
 
-  /// Initialize Supabase Auth
+  /// Instances Supabse DB Access
   final _dao = SupabaseDao.init;
 
   /// Getter (_dao)

@@ -12,9 +12,9 @@ class FoodStoreModel {
 
   final String uid;
 
-  final String latitude;
+  final double latitude;
 
-  final String longitude;
+  final double longitude;
 
   final DateTime? createdAt;
 
