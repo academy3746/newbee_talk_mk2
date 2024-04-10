@@ -137,7 +137,9 @@ class EditCont extends GetxController {
   Future<bool> postStoreData() async {
     var success = false;
 
-    if (!formKey.currentState!.validate()) return false;
+    if (!formKey.currentState!.validate()) {
+      return false;
+    }
 
     if (storeImgFile != null) {
       var now = DateTime.now();
