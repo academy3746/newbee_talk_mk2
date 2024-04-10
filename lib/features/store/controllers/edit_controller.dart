@@ -196,9 +196,7 @@ class EditCont extends GetxController {
 
       snackBar.showSnackbar(Get.context!);
 
-      AppRouter.main().offAnd();
-
-      await dto.fetchStoreInfo();
+      AppRouter.main().offAll();
 
       success = true;
     } else {

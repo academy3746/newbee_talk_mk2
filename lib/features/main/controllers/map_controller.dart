@@ -15,17 +15,11 @@ import 'package:permission_handler/permission_handler.dart';
 class MapCont extends GetxController {
   static MapCont get to => Get.find<MapCont>();
 
-  /// Initialize Map Synchronize
-  final _completer = Completer<NaverMapController>();
-
   /// Instances Data Transfer Class
   final _dto = SupabaseService();
 
   /// Instances Store List
   final _storeList = RxList<FoodStoreModel>();
-
-  /// Getter (_completer)
-  Completer<NaverMapController> get completer => _completer;
 
   /// Getter (_dao)
   SupabaseService get dto => _dto;
@@ -73,8 +67,6 @@ class MapCont extends GetxController {
     mapCont.updateCamera(
       NCameraUpdate.fromCameraPosition(position),
     );
-
-    completer.complete(mapCont);
   }
 
   /// Show Markers with Food Store Info
