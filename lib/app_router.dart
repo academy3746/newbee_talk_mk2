@@ -57,7 +57,10 @@ class AppRouter {
 
   /// Navigation.pushReplacementNamed()
   void off({dynamic arguments}) {
-    Get.offNamed(page, arguments: arguments);
+    Get.offNamed(
+      page,
+      arguments: arguments,
+    );
   }
 
   /// Navigation.popAndPushNamed()

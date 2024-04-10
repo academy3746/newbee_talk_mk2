@@ -147,10 +147,6 @@ class EditCont extends GetxController {
       await dao.storage.from('newbee_talk').upload(
             path,
             storeImgFile!,
-            fileOptions: const FileOptions(
-              upsert: true,
-              cacheControl: '3600',
-            ),
           );
 
       var uploadUrl = dao.storage.from('newbee_talk').getPublicUrl(path);
@@ -196,7 +192,7 @@ class EditCont extends GetxController {
 
       snackBar.showSnackbar(Get.context!);
 
-      AppRouter.main().offAll();
+      AppRouter.main().off();
 
       success = true;
     } else {
