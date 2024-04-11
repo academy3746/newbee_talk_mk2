@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:newbee_talk_mk2/app_router.dart';
 import 'package:newbee_talk_mk2/common/constant/gaps.dart';
 import 'package:newbee_talk_mk2/common/constant/sizes.dart';
 import 'package:newbee_talk_mk2/common/widgets/app_snackbar.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_button.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_text.dart';
 import 'package:newbee_talk_mk2/dao/dao.dart';
+import 'package:newbee_talk_mk2/features/store/controllers/detail_controller.dart';
 import 'package:newbee_talk_mk2/features/store/models/store.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -88,7 +90,7 @@ class MapCont extends GetxController {
       );
 
       marker.setOnTapListener((overlay) {
-        return _showStoreInfoBottomSheet(
+        return _showStoreInfoModal(
           model,
           context,
         );
@@ -99,7 +101,7 @@ class MapCont extends GetxController {
   }
 
   /// Show BottomModalSheet Including Store Info
-  void _showStoreInfoBottomSheet(FoodStoreModel model, BuildContext context) {
+  void _showStoreInfoModal(FoodStoreModel model, BuildContext context) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.white,
@@ -184,7 +186,13 @@ class MapCont extends GetxController {
                 btnBackgroundColor: Colors.black87,
                 btnText: '자세히보기',
                 textColor: Colors.grey.shade200,
-                btnAction: () {},
+                btnAction: () {
+                  DetailCont detailCont = DetailCont.to;
+
+                  detailCont.setState(model);
+
+                  AppRouter.detail().offAnd();
+                },
               ),
             ),
           ],

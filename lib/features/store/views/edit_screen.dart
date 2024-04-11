@@ -74,14 +74,11 @@ class EditScreen extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: Sizes.size200 + Sizes.size30,
       decoration: ShapeDecoration(
-        color: cont.storeImgFile == null ? Colors.black87 : Colors.white,
+        color: cont.storeImgFile == null ? Colors.black87 : Colors.grey.shade200,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Sizes.size4),
-          side: BorderSide(
-            width: cont.storeImgFile == null ? 1 : 2,
-            color: cont.storeImgFile == null
-                ? Colors.grey.shade200
-                : Colors.black87,
+          side: const BorderSide(
+            color: Colors.transparent,
           ),
         ),
       ),
@@ -179,6 +176,7 @@ class EditScreen extends StatelessWidget {
           /// Store Location
           const CommonText(
             textContent: '플레이스 위치 (도로명 주소)',
+            textColor: Colors.black87,
             textSize: Sizes.size20,
             textWeight: FontWeight.w600,
           ),
@@ -204,6 +202,7 @@ class EditScreen extends StatelessWidget {
           /// Store Name
           const CommonText(
             textContent: '플레이스 명칭',
+            textColor: Colors.black87,
             textSize: Sizes.size20,
             textWeight: FontWeight.w600,
           ),
@@ -221,6 +220,7 @@ class EditScreen extends StatelessWidget {
           /// Store Description
           const CommonText(
             textContent: '플레이스 설명',
+            textColor: Colors.black87,
             textSize: Sizes.size20,
             textWeight: FontWeight.w600,
           ),

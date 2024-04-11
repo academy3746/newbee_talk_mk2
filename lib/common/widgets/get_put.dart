@@ -4,6 +4,7 @@ import 'package:newbee_talk_mk2/features/auth/controllers/sign_up_controller.dar
 import 'package:newbee_talk_mk2/features/main/controllers/main_controller.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/map_controller.dart';
 import 'package:newbee_talk_mk2/features/splash/controllers/splash_controller.dart';
+import 'package:newbee_talk_mk2/features/store/controllers/detail_controller.dart';
 import 'package:newbee_talk_mk2/features/store/controllers/edit_controller.dart';
 
 /// Project Root InitialBinding
@@ -26,5 +27,8 @@ class GetPut {
 
     /// [Store] Edit Controller
     Get.put(EditCont());
+
+    /// [Store] Detail Controller
+    Get.put(DetailCont());
   }
 }

@@ -4,6 +4,7 @@ import 'package:newbee_talk_mk2/features/auth/views/login_screen.dart';
 import 'package:newbee_talk_mk2/features/auth/views/sign_up_screen.dart';
 import 'package:newbee_talk_mk2/features/main/views/main_screen.dart';
 import 'package:newbee_talk_mk2/features/splash/views/splash_screen.dart';
+import 'package:newbee_talk_mk2/features/store/views/detail_screen.dart';
 import 'package:newbee_talk_mk2/features/store/views/edit_screen.dart';
 import 'package:newbee_talk_mk2/features/store/views/post_screen.dart';
 
@@ -24,17 +25,16 @@ class AppRouter {
         MainScreen.routeName: const MainScreen(),
         EditScreen.routeName: const EditScreen(),
         PostScreen.routeName: const PostScreen(),
+        DetailScreen.routeName: const DetailScreen(),
       };
 
   static List<GetPage> get pagesList => pages.entries
-      .map(
-        (page) => GetPage(
-          name: page.key,
-          page: () => page.value,
-          transition: transition,
-          transitionDuration: transitionDuration,
-        ),
-      )
+      .map((page) => GetPage(
+            name: page.key,
+            page: () => page.value,
+            transition: transition,
+            transitionDuration: transitionDuration,
+          ))
       .toList();
 
   factory AppRouter.splash() => AppRouter(SplashScreen.routeName);
@@ -46,6 +46,8 @@ class AppRouter {
   factory AppRouter.main() => AppRouter(MainScreen.routeName);
 
   factory AppRouter.edit() => AppRouter(EditScreen.routeName);
+
+  factory AppRouter.detail() => AppRouter(DetailScreen.routeName);
 
   /// Navigation.pushNamed()
   void to({dynamic arguments}) {
