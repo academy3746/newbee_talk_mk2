@@ -20,9 +20,6 @@ class EditCont extends GetxController {
   /// Instances Data Access Class
   final _dao = SupabaseService.init;
 
-  /// Instances Data Transfer Class
-  final _dto = SupabaseService();
-
   /// Instances TextField Validator
   final _validation = InputFieldValidator();
 
@@ -49,9 +46,6 @@ class EditCont extends GetxController {
 
   /// Getter (_dao)
   SupabaseClient get dao => _dao;
-
-  /// Getter (_dto)
-  SupabaseService get dto => _dto;
 
   /// Getter (_validation)
   InputFieldValidator get validation => _validation;
