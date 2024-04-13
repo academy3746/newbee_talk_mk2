@@ -14,15 +14,6 @@ class EditScreen extends StatelessWidget {
 
   static const String routeName = '/edit';
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      backgroundColor: Colors.white,
-      body: _buildPageBody(context),
-    );
-  }
-
   PreferredSizeWidget _buildAppBar() {
     return CommonAppBar(
       title: '플레이스 등록',
@@ -49,13 +40,13 @@ class EditScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
-                  child: _storeImage(context),
                   onTap: () {
                     showModalBottomSheet(
                       context: context,
                       builder: (context) => _showImageUploadBottomSheet(),
                     );
                   },
+                  child: _storeImage(context),
                 ),
                 _editFormField(),
               ],
@@ -74,7 +65,8 @@ class EditScreen extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: Sizes.size200 + Sizes.size30,
       decoration: ShapeDecoration(
-        color: cont.storeImgFile == null ? Colors.black87 : Colors.grey.shade200,
+        color:
+            cont.storeImgFile == null ? Colors.black87 : Colors.grey.shade200,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Sizes.size4),
           side: const BorderSide(
@@ -249,6 +241,15 @@ class EditScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _buildAppBar(),
+      backgroundColor: Colors.white,
+      body: _buildPageBody(context),
     );
   }
 }
