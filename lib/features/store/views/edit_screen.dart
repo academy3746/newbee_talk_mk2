@@ -9,10 +9,17 @@ import 'package:newbee_talk_mk2/common/widgets/common_text_field.dart';
 import 'package:newbee_talk_mk2/features/store/controllers/edit_controller.dart';
 import 'package:newbee_talk_mk2/features/store/views/post_screen.dart';
 
-class EditScreen extends StatelessWidget {
+class EditScreen extends StatefulWidget {
   const EditScreen({super.key});
 
   static const String routeName = '/edit';
+
+  @override
+  State<EditScreen> createState() => _EditScreenState();
+}
+
+class _EditScreenState extends State<EditScreen> {
+  final cont = EditCont.to;
 
   PreferredSizeWidget _buildAppBar() {
     return CommonAppBar(
@@ -59,8 +66,6 @@ class EditScreen extends StatelessWidget {
 
   /// Image Upload Area UI
   Widget _storeImage(BuildContext context) {
-    EditCont cont = EditCont.to;
-
     return Container(
       width: MediaQuery.of(context).size.width,
       height: Sizes.size200 + Sizes.size30,
@@ -89,8 +94,6 @@ class EditScreen extends StatelessWidget {
 
   /// PopUp Bottom Modal Sheet Bar
   Widget _showImageUploadBottomSheet() {
-    EditCont cont = EditCont.to;
-
     return Container(
       color: Colors.transparent,
       width: double.infinity,
@@ -156,8 +159,6 @@ class EditScreen extends StatelessWidget {
 
   /// Multi FormField Area UI
   Widget _editFormField() {
-    EditCont cont = EditCont.to;
-
     return Form(
       key: cont.formKey,
       child: Column(

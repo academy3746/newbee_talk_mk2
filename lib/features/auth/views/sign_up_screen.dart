@@ -8,10 +8,17 @@ import 'package:newbee_talk_mk2/common/widgets/common_text.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_text_field.dart';
 import 'package:newbee_talk_mk2/features/auth/controllers/sign_up_controller.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
   static const String routeName = '/signup';
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final cont = SignUpCont.to;
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +77,6 @@ class SignUpScreen extends StatelessWidget {
 
   /// Profile Img Post Widget
   Widget _buildProfile() {
-    SignUpCont cont = SignUpCont.to;
-
     if (cont.profileImg == null) {
       return Center(
         child: CircleAvatar(
@@ -97,8 +102,6 @@ class SignUpScreen extends StatelessWidget {
 
   /// PopUp Bottom Modal Sheet Bar
   Widget _showImageUploadBottomSheet() {
-    SignUpCont cont = SignUpCont.to;
-
     return Container(
       color: Colors.transparent,
       width: double.infinity,
@@ -164,8 +167,6 @@ class SignUpScreen extends StatelessWidget {
 
   /// Register FormField
   Widget _formField(BuildContext context) {
-    SignUpCont cont = SignUpCont.to;
-
     return Form(
       key: cont.formKey,
       child: Column(

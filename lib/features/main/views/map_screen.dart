@@ -4,8 +4,15 @@ import 'package:newbee_talk_mk2/common/constant/sizes.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_text.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/map_controller.dart';
 
-class MapScreen extends StatelessWidget {
+class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
+
+  @override
+  State<MapScreen> createState() => _MapScreenState();
+}
+
+class _MapScreenState extends State<MapScreen> {
+  final cont = MapCont.to;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +23,6 @@ class MapScreen extends StatelessWidget {
   }
 
   Widget _buildPageBody(BuildContext context) {
-    MapCont cont = MapCont.to;
-
     return FutureBuilder(
       future: cont.fetchAllFoodStoreInfo(),
       builder: (context, snapshot) {

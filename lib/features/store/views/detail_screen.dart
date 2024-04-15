@@ -8,14 +8,19 @@ import 'package:newbee_talk_mk2/common/widgets/common_text.dart';
 import 'package:newbee_talk_mk2/common/widgets/plain_text.dart';
 import 'package:newbee_talk_mk2/features/store/controllers/detail_controller.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key});
 
   static const String routeName = '/detail';
 
-  PreferredSizeWidget _buildAppBar() {
-    DetailCont cont = DetailCont.to;
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
 
+class _DetailScreenState extends State<DetailScreen> {
+  final cont = DetailCont.to;
+
+  PreferredSizeWidget _buildAppBar() {
     return CommonAppBar(
       title: cont.storeName,
       implyLeading: true,
@@ -47,8 +52,6 @@ class DetailScreen extends StatelessWidget {
 
   /// Store Image Area
   Widget _storeImage(BuildContext context) {
-    DetailCont cont = DetailCont.to;
-
     return Container(
       width: MediaQuery.of(context).size.width,
       height: Sizes.size200 + Sizes.size30,
@@ -76,8 +79,6 @@ class DetailScreen extends StatelessWidget {
 
   /// FormField Area
   Widget _formFieldArea(BuildContext context) {
-    DetailCont cont = DetailCont.to;
-
     cont.getStoreUploader(context);
 
     return Obx(

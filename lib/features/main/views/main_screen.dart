@@ -7,21 +7,24 @@ import 'package:newbee_talk_mk2/common/constant/sizes.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/main_controller.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
   static const String routeName = '/main';
 
   @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  final cont = MainCont.to;
+
+  @override
   Widget build(BuildContext context) {
-    MainCont cont = MainCont.to;
-
-    final back = cont.backHandlerButton;
-
     return WillPopScope(
       onWillPop: () {
-        if (back != null) {
-          return back.onWillPop();
+        if (cont.backHandlerButton != null) {
+          return cont.backHandlerButton!.onWillPop();
         }
 
         return Future.value(false);
@@ -38,8 +41,6 @@ class MainScreen extends StatelessWidget {
   }
 
   Widget _buildBottomNavigationBar() {
-    final cont = MainCont.to;
-
     return SizedBox(
       height: Sizes.size64,
       child: BottomNavigationBar(

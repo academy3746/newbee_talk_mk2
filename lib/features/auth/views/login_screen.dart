@@ -10,19 +10,24 @@ import 'package:newbee_talk_mk2/common/widgets/common_text.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_text_field.dart';
 import 'package:newbee_talk_mk2/features/auth/controllers/login_controller.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   static const String routeName = '/login';
 
   @override
-  Widget build(BuildContext context) {
-    final back = LoginCont.to.backHandlerButton;
+  State<LoginScreen> createState() => _LoginScreenState();
+}
 
+class _LoginScreenState extends State<LoginScreen> {
+  final cont = LoginCont.to;
+
+  @override
+  Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        if (back != null) {
-          return back.onWillPop();
+        if (cont.backHandlerButton != null) {
+          return cont.backHandlerButton!.onWillPop();
         }
 
         return Future.value(false);
@@ -39,8 +44,6 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _buildPageBody(BuildContext context) {
-    LoginCont cont = LoginCont.to;
-
     return SingleChildScrollView(
       physics: const ClampingScrollPhysics(),
       scrollDirection: Axis.vertical,
