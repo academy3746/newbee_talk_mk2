@@ -75,26 +75,24 @@ class DetailCont extends GetxController {
     _uid.value = model.uid;
   }
 
-  /// Bookmark Button onPressed
-  Future<void> bookMarkButtonOnPressed() async {
-    var status = await _favoriteStatus();
+  /// Favorite Button OnPressed
+  Future<void> favoriteButtonOnPressed() async {
+    var status = await dto.fetchFavorite(storeId: id);
 
-    status == true ? _deleteStore() : _upsertStore();
+    if (status.isNotEmpty) {
+      _isFavorite.value = true;
+
+      _deleteStore();
+    } else {
+      _isFavorite.value = false;
+
+      _upsertStore();
+    }
 
     _isFavorite(!isFavorite);
   }
 
-  /// Async Favorite Status with DB
-  Future<bool> _favoriteStatus() async {
-    var res = await dto.setFavoriteState(
-      storeId: id,
-      isFavorite: isFavorite,
-    );
-
-    return res;
-  }
-
-  /// INSERT & UPDATE Favorite Store
+  /// INSERT & UPDATE Store
   void _upsertStore() {
     dto.upsertFavorite(storeId: id);
 
@@ -125,14 +123,5 @@ class DetailCont extends GetxController {
     );
 
     _uploaderName.value = userModel.name;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-
-    _isFavorite.value = false;
-
-    _favoriteStatus();
   }
 }

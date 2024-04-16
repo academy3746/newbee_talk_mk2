@@ -46,7 +46,7 @@ class SupabaseService {
   }
 
   /// SELECT ~ FROM `favorite` ...
-  Future fetchFavorite({required int storeId}) async {
+  Future<List<FavoriteModel>> fetchFavorite({required int storeId}) async {
     final favoriteMap = await init
         .from('favorite')
         .select()
@@ -60,22 +60,6 @@ class SupabaseService {
         .toList();
 
     return res;
-  }
-
-  /// SetState Favorite
-  Future<bool> setFavoriteState({
-    required int storeId,
-    required bool isFavorite,
-  }) async {
-    final favoriteMap = await init
-        .from('favorite')
-        .select()
-        .eq('food_store_id', storeId)
-        .eq('favorite_uid', init.auth.currentUser!.id);
-
-    favoriteMap.isNotEmpty ? isFavorite == true : isFavorite == false;
-
-    return isFavorite;
   }
 
   /// INSERT & UPDATE Favorite Store

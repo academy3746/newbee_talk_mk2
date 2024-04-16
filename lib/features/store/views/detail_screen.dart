@@ -20,6 +20,13 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   final cont = DetailCont.to;
 
+  @override
+  void initState() {
+    super.initState();
+
+    cont.getStoreUploader(context);
+  }
+
   PreferredSizeWidget _buildAppBar() {
     return CommonAppBar(
       title: cont.storeName,
@@ -79,8 +86,6 @@ class _DetailScreenState extends State<DetailScreen> {
 
   /// FormField Area
   Widget _formFieldArea(BuildContext context) {
-    cont.getStoreUploader(context);
-
     return Obx(
       () => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,7 +135,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   ? Colors.black87
                   : Colors.black38,
               textColor: Colors.grey.shade200,
-              btnAction: () => cont.bookMarkButtonOnPressed(),
+              btnAction: () => cont.favoriteButtonOnPressed(),
             ),
           ),
         ],
