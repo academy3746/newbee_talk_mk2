@@ -6,6 +6,9 @@ import 'package:newbee_talk_mk2/features/store/models/store.dart';
 class DetailCont extends GetxController {
   static DetailCont get to => Get.find<DetailCont>();
 
+  /// Store ID
+  final _id = 0.obs;
+
   /// Store Name
   final _storeName = ''.obs;
 
@@ -19,7 +22,7 @@ class DetailCont extends GetxController {
   final _storeImgUrl = Rxn<String>();
 
   /// Bookmark Status
-  final _bookMarkStatus = false.obs;
+  final _isFavorite = false.obs;
 
   /// Instances Data Transfer Object
   final _dto = SupabaseService();
@@ -29,6 +32,9 @@ class DetailCont extends GetxController {
 
   /// Store Uploader Uid
   final _uid = ''.obs;
+
+  /// Getter
+  int get id => _id.value;
 
   /// Getter (_storeName)
   String get storeName => _storeName.value;
@@ -43,7 +49,7 @@ class DetailCont extends GetxController {
   String? get storeImgUrl => _storeImgUrl.value;
 
   /// Getter (_bookMarkStatus)
-  bool get bookMarkStatus => _bookMarkStatus.value;
+  bool get isFavorite => _isFavorite.value;
 
   /// Getter (_dto)
   SupabaseService get dto => _dto;
@@ -56,6 +62,8 @@ class DetailCont extends GetxController {
 
   /// Get Query Parameter From MapCont
   void setState(FoodStoreModel model) {
+    _id.value = model.id!;
+
     _storeName.value = model.storeName;
 
     _storeAddress.value = model.storeAddress;
@@ -67,22 +75,64 @@ class DetailCont extends GetxController {
     _uid.value = model.uid;
   }
 
-  /// BookMark Toggle Button
-  void bookMarkOnPressed() {
-    _bookMarkStatus(!_bookMarkStatus.value);
+  /// Bookmark Button onPressed
+  Future<void> bookMarkButtonOnPressed() async {
+    var status = await _favoriteStatus();
+
+    status == true ? _deleteStore() : _upsertStore();
+
+    _isFavorite(!isFavorite);
+  }
+
+  /// Async Favorite Status with DB
+  Future<bool> _favoriteStatus() async {
+    var res = await dto.setFavoriteState(
+      storeId: id,
+      isFavorite: isFavorite,
+    );
+
+    return res;
+  }
+
+  /// INSERT & UPDATE Favorite Store
+  void _upsertStore() {
+    dto.upsertFavorite(storeId: id);
+
+    Get.showSnackbar(
+      const GetSnackBar(
+        message: '플레이스를 찜했어요!',
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  /// DELETE Store
+  void _deleteStore() {
+    dto.deleteFavorite(storeId: id);
+
+    Get.showSnackbar(
+      const GetSnackBar(
+        message: '플레이스 찜하기를 취소했어요!',
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
 
   /// Get Store Uploader Name
   Future<void> getStoreUploader(BuildContext context) async {
-    final userModel = await dto.fetchStoreUploaderName(uid);
+    final userModel = await dto.fetchStoreUploaderName(
+      otherUid: uid,
+    );
 
     _uploaderName.value = userModel.name;
   }
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
 
-    _bookMarkStatus(false);
+    _isFavorite.value = false;
+
+    _favoriteStatus();
   }
 }

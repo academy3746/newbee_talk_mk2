@@ -125,16 +125,12 @@ class _DetailScreenState extends State<DetailScreen> {
             width: double.infinity,
             height: Sizes.size64,
             child: CommonButton(
-              btnText: cont.bookMarkStatus == false ? '찜하기' : '해제하기',
-              btnBackgroundColor: cont.bookMarkStatus == false
+              btnText: cont.isFavorite == false ? '찜하기' : '취소하기',
+              btnBackgroundColor: cont.isFavorite == false
                   ? Colors.black87
                   : Colors.black38,
-              textColor: cont.bookMarkStatus == false
-                  ? Colors.grey.shade200
-                  : Colors.white,
-              btnAction: () {
-                cont.bookMarkOnPressed();
-              },
+              textColor: Colors.grey.shade200,
+              btnAction: () => cont.bookMarkButtonOnPressed(),
             ),
           ),
         ],
