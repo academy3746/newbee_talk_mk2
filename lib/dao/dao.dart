@@ -80,4 +80,20 @@ class SupabaseService {
         .eq('food_store_id', storeId)
         .eq('favorite_uid', init.auth.currentUser!.id);
   }
+
+  /// Search by Keyword
+  Future<List<FoodStoreModel>> searchByKeyword(String keyword) async {
+    var foodMap = await init.from('food_store').select().like(
+          'store_name',
+          '%$keyword%',
+        );
+
+    var res = foodMap
+        .map(
+          (data) => FoodStoreModel.fromJson(data),
+        )
+        .toList();
+
+    return res;
+  }
 }

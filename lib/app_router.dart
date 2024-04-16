@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:newbee_talk_mk2/features/auth/views/login_screen.dart';
 import 'package:newbee_talk_mk2/features/auth/views/sign_up_screen.dart';
 import 'package:newbee_talk_mk2/features/main/views/main_screen.dart';
+import 'package:newbee_talk_mk2/features/main/views/search_screen.dart';
 import 'package:newbee_talk_mk2/features/splash/views/splash_screen.dart';
 import 'package:newbee_talk_mk2/features/store/views/detail_screen.dart';
 import 'package:newbee_talk_mk2/features/store/views/edit_screen.dart';
@@ -23,6 +24,7 @@ class AppRouter {
         LoginScreen.routeName: const LoginScreen(),
         SignUpScreen.routeName: const SignUpScreen(),
         MainScreen.routeName: const MainScreen(),
+        SearchScreen.routeName: const SearchScreen(),
         EditScreen.routeName: const EditScreen(),
         PostScreen.routeName: const PostScreen(),
         DetailScreen.routeName: const DetailScreen(),
@@ -44,6 +46,8 @@ class AppRouter {
   factory AppRouter.signUp() => AppRouter(SignUpScreen.routeName);
 
   factory AppRouter.main() => AppRouter(MainScreen.routeName);
+
+  factory AppRouter.search() => AppRouter(SearchScreen.routeName);
 
   factory AppRouter.edit() => AppRouter(EditScreen.routeName);
 

@@ -3,6 +3,7 @@ import 'package:newbee_talk_mk2/features/auth/controllers/login_controller.dart'
 import 'package:newbee_talk_mk2/features/auth/controllers/sign_up_controller.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/main_controller.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/map_controller.dart';
+import 'package:newbee_talk_mk2/features/main/controllers/search_controller.dart';
 import 'package:newbee_talk_mk2/features/splash/controllers/splash_controller.dart';
 import 'package:newbee_talk_mk2/features/store/controllers/detail_controller.dart';
 import 'package:newbee_talk_mk2/features/store/controllers/edit_controller.dart';
@@ -24,6 +25,9 @@ class GetPut {
 
     /// [Main] Map Controller
     Get.put(MapCont());
+
+    /// [Main] Search Controller
+    Get.put(SearchCont());
 
     /// [Store] Edit Controller
     Get.put(EditCont());

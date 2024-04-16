@@ -9,7 +9,9 @@ import 'package:newbee_talk_mk2/common/constant/sizes.dart';
 import 'package:newbee_talk_mk2/common/widgets/app_snackbar.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_button.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_text.dart';
+import 'package:newbee_talk_mk2/common/widgets/form_field_validator.dart';
 import 'package:newbee_talk_mk2/dao/dao.dart';
+import 'package:newbee_talk_mk2/features/main/controllers/search_controller.dart';
 import 'package:newbee_talk_mk2/features/store/controllers/detail_controller.dart';
 import 'package:newbee_talk_mk2/features/store/models/store.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -23,11 +25,29 @@ class MapCont extends GetxController {
   /// Instances Store List
   final _storeList = RxList<FoodStoreModel>();
 
+  /// Search Field Form Key
+  final _formKey = GlobalKey<FormState>().obs;
+
+  /// Search Field Controller
+  final _searchCont = TextEditingController().obs;
+
+  /// Instances Validator Class
+  final _validation = InputFieldValidator();
+
   /// Getter (_dao)
   SupabaseService get dto => _dto;
 
   /// Getter (_storeList)
   List<FoodStoreModel> get storeList => _storeList;
+
+  /// Getter (_formKey)
+  GlobalKey<FormState> get formKey => _formKey.value;
+
+  /// Getter (_searchCont)
+  TextEditingController get searchCont => _searchCont.value;
+
+  /// Getter (_validation)
+  InputFieldValidator get validation => _validation;
 
   /// Get My Location
   Future<NCameraPosition> _fetchLocation() async {
@@ -206,6 +226,21 @@ class MapCont extends GetxController {
     var res = await dto.fetchStoreInfo()!;
 
     return res;
+  }
+
+  /// OnSearch Callback
+  Future<void> onFieldSubmitted(String keyword) async {
+    if (!formKey.currentState!.validate()) return;
+
+    var model = await dto.searchByKeyword(keyword);
+
+    SearchCont search = SearchCont.to;
+
+    search.setSearchKeyWord(model);
+
+    AppRouter.search().to();
+
+    searchCont.clear();
   }
 
   @override
