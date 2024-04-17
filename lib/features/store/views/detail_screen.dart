@@ -86,60 +86,59 @@ class _DetailScreenState extends State<DetailScreen> {
 
   /// FormField Area
   Widget _formFieldArea(BuildContext context) {
-    return Obx(
-      () => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Gaps.v16,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Gaps.v16,
 
-          /// Store Address
-          const CommonText(
-            textContent: '플레이스 위치 (도로명 주소)',
-            textColor: Colors.black87,
-            textSize: Sizes.size20,
-            textWeight: FontWeight.w700,
-          ),
-          PlainText(content: cont.storeAddress),
-          Gaps.v16,
+        /// Store Address
+        const CommonText(
+          textContent: '플레이스 위치 (도로명 주소)',
+          textColor: Colors.black87,
+          textSize: Sizes.size20,
+          textWeight: FontWeight.w700,
+        ),
+        PlainText(content: cont.storeAddress),
+        Gaps.v16,
 
-          /// Store User
-          const CommonText(
-            textContent: '플레이스 공유자',
-            textColor: Colors.black87,
-            textSize: Sizes.size20,
-            textWeight: FontWeight.w700,
-          ),
-          PlainText(content: cont.uploaderName),
-          Gaps.v16,
+        /// Store User
+        const CommonText(
+          textContent: '플레이스 공유자',
+          textColor: Colors.black87,
+          textSize: Sizes.size20,
+          textWeight: FontWeight.w700,
+        ),
+        PlainText(content: cont.uploaderName),
+        Gaps.v16,
 
-          /// Store Info
-          const CommonText(
-            textContent: '플레이스 설명',
-            textColor: Colors.black87,
-            textSize: Sizes.size20,
-            textWeight: FontWeight.w700,
-          ),
-          PlainText(
-            content: cont.storeInfo,
-            height: Sizes.size300,
-          ),
-          Gaps.v16,
+        /// Store Info
+        const CommonText(
+          textContent: '플레이스 설명',
+          textColor: Colors.black87,
+          textSize: Sizes.size20,
+          textWeight: FontWeight.w700,
+        ),
+        PlainText(
+          content: cont.storeInfo,
+          height: Sizes.size300,
+        ),
+        Gaps.v16,
 
-          /// Bookmark Button
-          SizedBox(
+        /// Bookmark Button
+        Obx(
+          () => SizedBox(
             width: double.infinity,
             height: Sizes.size64,
             child: CommonButton(
               btnText: cont.isFavorite == false ? '찜하기' : '취소하기',
-              btnBackgroundColor: cont.isFavorite == false
-                  ? Colors.black87
-                  : Colors.black38,
+              btnBackgroundColor:
+                  cont.isFavorite == false ? Colors.black87 : Colors.black38,
               textColor: Colors.grey.shade200,
               btnAction: () => cont.favoriteButtonOnPressed(),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
