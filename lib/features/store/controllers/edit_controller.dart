@@ -46,11 +46,6 @@ class EditCont extends GetxController {
   /// Instances Daum PostCode
   final _postModel = Rxn<DataModel>();
 
-  /// Class Constructor
-  EditCont() {
-    _initImageUploader();
-  }
-
   /// Getter (_dao)
   SupabaseClient get dao => _dao;
 
@@ -208,6 +203,8 @@ class EditCont extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
+    _initImageUploader();
 
     validation;
   }
