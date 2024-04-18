@@ -64,7 +64,7 @@ class LoginCont extends GetxController {
 
       AppRouter.main().offAll();
 
-      snackbar.showSnackbar(Get.context!);
+      snackbar.showSnackbar();
 
       success = true;
     } else {
@@ -72,7 +72,7 @@ class LoginCont extends GetxController {
         msg: '잘못된 로그인 절차입니다!',
       );
 
-      snackbar.showSnackbar(Get.context!);
+      snackbar.showSnackbar();
 
       success = false;
     }

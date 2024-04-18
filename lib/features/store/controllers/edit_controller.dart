@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:newbee_talk_mk2/app_router.dart';
 import 'package:newbee_talk_mk2/common/widgets/app_snackbar.dart';
 import 'package:newbee_talk_mk2/common/widgets/form_field_validator.dart';
+import 'package:newbee_talk_mk2/common/widgets/image_uploader.dart';
 import 'package:newbee_talk_mk2/dao/dao.dart';
 import 'package:newbee_talk_mk2/features/store/models/store.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -22,6 +23,9 @@ class EditCont extends GetxController {
 
   /// Instances TextField Validator
   final _validation = InputFieldValidator();
+
+  /// Instances ImageUploader Widget
+  final _upload = ImageUploader();
 
   /// Uploaded Image File
   final _storeImgFile = Rxn<File>();
@@ -49,6 +53,9 @@ class EditCont extends GetxController {
 
   /// Getter (_validation)
   InputFieldValidator get validation => _validation;
+
+  /// Getter (_upload)
+  ImageUploader get upload => _upload;
 
   /// Getter (_storeImg)
   File? get storeImgFile => _storeImgFile.value;
@@ -80,7 +87,7 @@ class EditCont extends GetxController {
     );
 
     if (camera.isDenied || camera.isPermanentlyDenied) {
-      snackbar.showSnackbar(Get.context!);
+      snackbar.showSnackbar();
 
       openAppSettings();
     }
@@ -173,7 +180,7 @@ class EditCont extends GetxController {
           msg: '현재 위치 값에 오류가 있는 것 같습니다! 다른 주소로 검색해 주세요 😂',
         );
 
-        snackBar.showSnackbar(Get.context!);
+        snackBar.showSnackbar();
 
         return false;
       }
@@ -204,7 +211,7 @@ class EditCont extends GetxController {
         msg: '플레이스가 정상적으로 등록되었어요! 💕',
       );
 
-      snackBar.showSnackbar(Get.context!);
+      snackBar.showSnackbar();
 
       AppRouter.main().off();
 
@@ -214,7 +221,7 @@ class EditCont extends GetxController {
         msg: '플레이스 등록이 실패하였습니다... 😱',
       );
 
-      snackBar.showSnackbar(Get.context!);
+      snackBar.showSnackbar();
 
       Get.back();
 

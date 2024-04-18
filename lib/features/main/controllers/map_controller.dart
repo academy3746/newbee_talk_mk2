@@ -63,7 +63,7 @@ class MapCont extends GetxController {
           msg: '설정 > 앱 > 권한 목록에서 위치 정보 접근 권한을 수락해 주세요',
         );
 
-        snackbar.showSnackbar(Get.context!);
+        snackbar.showSnackbar();
 
         openAppSettings();
       }

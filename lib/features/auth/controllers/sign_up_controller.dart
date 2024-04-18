@@ -82,7 +82,7 @@ class SignUpCont extends GetxController {
     );
 
     if (camera.isDenied || camera.isPermanentlyDenied) {
-      snackbar.showSnackbar(Get.context!);
+      snackbar.showSnackbar();
 
       openAppSettings();
     }
@@ -176,7 +176,7 @@ class SignUpCont extends GetxController {
         msg: '뉴비톡톡과 함께 해줘서 기뻐요 💕',
       );
 
-      snackbar.showSnackbar(Get.context!);
+      snackbar.showSnackbar();
 
       AppRouter.main().offAll();
 
@@ -186,7 +186,7 @@ class SignUpCont extends GetxController {
         msg: '올바른 양식을 제출해 주세요!',
       );
 
-      snackbar.showSnackbar(Get.context!);
+      snackbar.showSnackbar();
 
       Get.back();
 

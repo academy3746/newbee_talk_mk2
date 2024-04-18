@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 /// Customized Material Snackbar
 class AppSnackbar {
@@ -6,12 +6,12 @@ class AppSnackbar {
 
   AppSnackbar({required this.msg});
 
-  void showSnackbar(BuildContext context) {
-    SnackBar snackbar = SnackBar(
-      content: Text(msg),
-      duration: const Duration(seconds: 2),
+  void showSnackbar() {
+    Get.showSnackbar(
+      GetSnackBar(
+        message: msg,
+        duration: const Duration(seconds: 2),
+      ),
     );
-
-    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 }
