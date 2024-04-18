@@ -20,10 +20,10 @@ class ImageUploader {
   late void Function()? onDeleteImage;
 
   factory ImageUploader({
-    File? file,
+    required File? file,
     String? url,
-    void Function(File? file)? onImageUploaded,
-    void Function()? onDeleteImage,
+    required void Function(File? file)? onImageUploaded,
+    required void Function()? onDeleteImage,
   }) {
     _internal.imgFile = file;
 
