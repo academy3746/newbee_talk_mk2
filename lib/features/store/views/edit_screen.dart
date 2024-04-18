@@ -46,14 +46,9 @@ class _EditScreenState extends State<EditScreen> {
             () => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) => _showImageUploadBottomSheet(),
-                    );
-                  },
-                  child: _storeImage(context),
+                cont.upload.showImageUploader(
+                  context: context,
+                  child: _buildStoreImage(context),
                 ),
                 _editFormField(),
               ],
@@ -64,8 +59,8 @@ class _EditScreenState extends State<EditScreen> {
     );
   }
 
-  /// Image Upload Area UI
-  Widget _storeImage(BuildContext context) {
+  /// Store Image Upload Area UI
+  Widget _buildStoreImage(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: Sizes.size200 + Sizes.size30,
@@ -89,71 +84,6 @@ class _EditScreenState extends State<EditScreen> {
               cont.storeImgFile!,
               fit: BoxFit.cover,
             ),
-    );
-  }
-
-  /// PopUp Bottom Modal Sheet Bar
-  Widget _showImageUploadBottomSheet() {
-    return Container(
-      color: Colors.transparent,
-      width: double.infinity,
-      margin: const EdgeInsets.all(Sizes.size10),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextButton(
-            onPressed: () {
-              Get.back();
-
-              cont.takePhoto();
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.transparent,
-            ),
-            child: const Text(
-              '사진 촬영',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: Sizes.size18,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              Get.back();
-
-              cont.selectImage();
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.transparent,
-            ),
-            child: const Text(
-              '사진 선택',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: Sizes.size18,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              Get.back();
-
-              cont.deleteImage();
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.transparent,
-            ),
-            child: const Text(
-              '사진 삭제',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: Sizes.size18,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 

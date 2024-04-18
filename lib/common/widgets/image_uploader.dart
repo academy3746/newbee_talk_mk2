@@ -15,12 +15,15 @@ class ImageUploader {
 
   late String? imgUrl;
 
-  late Function(File? file)? onImageUploaded;
+  late void Function(File? file)? onImageUploaded;
+
+  late void Function()? onDeleteImage;
 
   factory ImageUploader({
     File? file,
     String? url,
-    Function(File? file)? onImageUploaded,
+    void Function(File? file)? onImageUploaded,
+    void Function()? onDeleteImage,
   }) {
     _internal.imgFile = file;
 
@@ -28,22 +31,9 @@ class ImageUploader {
 
     _internal.onImageUploaded = onImageUploaded;
 
+    _internal.onDeleteImage = onDeleteImage;
+
     return _internal;
-  }
-
-  /// Camera Access Permission
-  Future<void> cameraPermission() async {
-    var camera = await Permission.camera.request();
-
-    var snackbar = AppSnackbar(
-      msg: '설정 > 앱 > 권한 목록에서 카메라 접근 권한을 수락해 주세요',
-    );
-
-    if (camera.isDenied || camera.isPermanentlyDenied) {
-      snackbar.showSnackbar();
-
-      openAppSettings();
-    }
   }
 
   /// PopUp ImageUploader Widget
@@ -109,7 +99,7 @@ class ImageUploader {
             onPressed: () {
               Get.back();
 
-              _deleteImage();
+              onDeleteImage!.call();
             },
             style: TextButton.styleFrom(
               backgroundColor: Colors.transparent,
@@ -124,33 +114,6 @@ class ImageUploader {
           ),
         ],
       ),
-    );
-  }
-
-  /// Store Image Upload Area UI
-  Widget buildStoreImage(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: Sizes.size200 + Sizes.size30,
-      decoration: ShapeDecoration(
-        color: imgFile == null ? Colors.black87 : Colors.grey.shade200,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Sizes.size4),
-          side: const BorderSide(
-            color: Colors.transparent,
-          ),
-        ),
-      ),
-      child: imgFile == null
-          ? Icon(
-              Icons.image_search_outlined,
-              size: Sizes.size96,
-              color: Colors.grey.shade200,
-            )
-          : Image.file(
-              imgFile!,
-              fit: BoxFit.cover,
-            ),
     );
   }
 
@@ -193,10 +156,5 @@ class ImageUploader {
     if (image != null) {
       onImageUploaded?.call(File(image.path));
     }
-  }
-
-  /// Delete Selected Image
-  void _deleteImage() {
-    imgFile = null;
   }
 }

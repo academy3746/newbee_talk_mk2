@@ -4,14 +4,12 @@ import 'package:daum_postcode_search/daum_postcode_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:newbee_talk_mk2/app_router.dart';
 import 'package:newbee_talk_mk2/common/widgets/app_snackbar.dart';
 import 'package:newbee_talk_mk2/common/widgets/form_field_validator.dart';
 import 'package:newbee_talk_mk2/common/widgets/image_uploader.dart';
 import 'package:newbee_talk_mk2/dao/dao.dart';
 import 'package:newbee_talk_mk2/features/store/models/store.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:http/http.dart' as http;
 
@@ -25,7 +23,7 @@ class EditCont extends GetxController {
   final _validation = InputFieldValidator();
 
   /// Instances ImageUploader Widget
-  final _upload = ImageUploader();
+  late final ImageUploader _upload;
 
   /// Uploaded Image File
   final _storeImgFile = Rxn<File>();
@@ -47,6 +45,11 @@ class EditCont extends GetxController {
 
   /// Instances Daum PostCode
   final _postModel = Rxn<DataModel>();
+
+  /// Class Constructor
+  EditCont() {
+    _initImageUploader();
+  }
 
   /// Getter (_dao)
   SupabaseClient get dao => _dao;
@@ -78,53 +81,24 @@ class EditCont extends GetxController {
   /// Getter (_postModel)
   DataModel? get postModel => _postModel.value;
 
-  /// Camera Access Permission
-  Future<void> _cameraPermission() async {
-    var camera = await Permission.camera.request();
-
-    var snackbar = AppSnackbar(
-      msg: '설정 > 앱 > 권한 목록에서 카메라 접근 권한을 수락해 주세요',
-    );
-
-    if (camera.isDenied || camera.isPermanentlyDenied) {
-      snackbar.showSnackbar();
-
-      openAppSettings();
-    }
-  }
-
   /// Initialize ImageUpload Callback
   void _onImageUploaded(File? file) {
     _storeImgFile(file);
   }
 
-  /// Take Photo
-  Future<void> takePhoto() async {
-    var image = await ImagePicker().pickImage(
-      source: ImageSource.camera,
-    );
-
-    if (image != null) {
-      _onImageUploaded(File(image.path));
-    }
-
-    await _cameraPermission();
-  }
-
-  /// Select Image from Gallery
-  Future<void> selectImage() async {
-    var image = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
-
-    if (image != null) {
-      _onImageUploaded(File(image.path));
-    }
-  }
-
-  /// Delete Selected Image
-  void deleteImage() {
+  /// Delete Image File
+  void _deleteImage() {
     _storeImgFile.value = null;
+  }
+
+  /// Initialize ImageUploader Class
+  void _initImageUploader() {
+    _upload = ImageUploader(
+      file: storeImgFile,
+      url: storeImgUrl,
+      onImageUploaded: _onImageUploaded,
+      onDeleteImage: _deleteImage,
+    );
   }
 
   /// SetState PostCode Value
