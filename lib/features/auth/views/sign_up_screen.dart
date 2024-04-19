@@ -20,15 +20,6 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final cont = SignUpCont.to;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: _buildAppBar(),
-      body: _buildPageBody(context),
-    );
-  }
-
   PreferredSizeWidget _buildAppBar() {
     return const CommonAppBar(
       title: '회원가입',
@@ -55,14 +46,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 /// Handling Image
-                GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) => _showImageUploadBottomSheet(),
-                    );
-                  },
-                  child: _buildProfile(),
+                cont.uploader.showImageUploader(
+                  context: context,
+                  child: _buildProfile(context),
                 ),
 
                 /// FormField
@@ -76,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   /// Profile Img Post Widget
-  Widget _buildProfile() {
+  Widget _buildProfile(BuildContext context) {
     if (cont.profileImg == null) {
       return Center(
         child: CircleAvatar(
@@ -98,71 +84,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       );
     }
-  }
-
-  /// PopUp Bottom Modal Sheet Bar
-  Widget _showImageUploadBottomSheet() {
-    return Container(
-      color: Colors.transparent,
-      width: double.infinity,
-      margin: const EdgeInsets.all(Sizes.size10),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextButton(
-            onPressed: () {
-              Get.back();
-
-              cont.takePhoto();
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.transparent,
-            ),
-            child: const Text(
-              '사진 촬영',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: Sizes.size18,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              Get.back();
-
-              cont.selectImage();
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.transparent,
-            ),
-            child: const Text(
-              '사진 선택',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: Sizes.size18,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              Get.back();
-
-              cont.deleteImage();
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.transparent,
-            ),
-            child: const Text(
-              '사진 삭제',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: Sizes.size18,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   /// Register FormField
@@ -297,6 +218,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: _buildAppBar(),
+      body: _buildPageBody(context),
     );
   }
 }

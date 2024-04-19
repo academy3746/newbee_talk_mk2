@@ -1,13 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:newbee_talk_mk2/app_router.dart';
 import 'package:newbee_talk_mk2/common/widgets/app_snackbar.dart';
 import 'package:newbee_talk_mk2/common/widgets/form_field_validator.dart';
+import 'package:newbee_talk_mk2/common/widgets/image_uploader.dart';
 import 'package:newbee_talk_mk2/dao/dao.dart';
 import 'package:newbee_talk_mk2/features/auth/models/user.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignUpCont extends GetxController {
@@ -43,6 +42,9 @@ class SignUpCont extends GetxController {
   /// Instances Supabse Authentication Access
   final _dao = SupabaseService.init;
 
+  /// Instances ImageUploader Widget Class
+  late ImageUploader _uploader;
+
   /// Getter (_profileImg)
   File? get profileImg => _profileImg.value;
 
@@ -73,19 +75,17 @@ class SignUpCont extends GetxController {
   /// Getter (_dao)
   SupabaseClient get dao => _dao;
 
-  /// Camera Access Permission
-  Future<void> _cameraPermission() async {
-    var camera = await Permission.camera.request();
+  /// Getter (_uploader)
+  ImageUploader get uploader => _uploader;
 
-    var snackbar = AppSnackbar(
-      msg: '설정 > 앱 > 권한 목록에서 카메라 접근 권한을 수락해 주세요',
+  /// Initialize ImageUploader
+  void _initImageUploader() {
+    _uploader = ImageUploader(
+      file: profileImg,
+      url: imgUrl,
+      onImageUploaded: _onImageUploaded,
+      onDeleteImage: _deleteImage,
     );
-
-    if (camera.isDenied || camera.isPermanentlyDenied) {
-      snackbar.showSnackbar();
-
-      openAppSettings();
-    }
   }
 
   /// Initialize ImageUpload Callback
@@ -93,32 +93,8 @@ class SignUpCont extends GetxController {
     _profileImg(file);
   }
 
-  /// Take Photo
-  Future<void> takePhoto() async {
-    var image = await ImagePicker().pickImage(
-      source: ImageSource.camera,
-    );
-
-    if (image != null) {
-      _onImageUploaded(File(image.path));
-    }
-
-    await _cameraPermission();
-  }
-
-  /// Select Image from Gallery
-  Future<void> selectImage() async {
-    var image = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
-
-    if (image != null) {
-      _onImageUploaded(File(image.path));
-    }
-  }
-
   /// Delete Selected Image
-  void deleteImage() {
+  void _deleteImage() {
     _profileImg.value = null;
   }
 
@@ -201,5 +177,7 @@ class SignUpCont extends GetxController {
     super.onInit();
 
     validation;
+
+    _initImageUploader();
   }
 }
