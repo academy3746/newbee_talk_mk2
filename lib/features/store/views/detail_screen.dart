@@ -124,21 +124,25 @@ class _DetailScreenState extends State<DetailScreen> {
         ),
         Gaps.v16,
 
-        /// Bookmark Button
-        Obx(
-          () => SizedBox(
-            width: double.infinity,
-            height: Sizes.size64,
-            child: CommonButton(
-              btnText: cont.isFavorite == false ? '찜하기' : '취소하기',
-              btnBackgroundColor:
-                  cont.isFavorite == false ? Colors.black87 : Colors.black38,
-              textColor: Colors.grey.shade200,
-              btnAction: () => cont.favoriteButtonOnPressed(),
-            ),
-          ),
-        ),
+        /// Favorite Button
+        _favoriteButton(),
       ],
+    );
+  }
+
+  /// Favorite Button Area UI
+  Widget _favoriteButton() {
+    return Obx(
+      () => SizedBox(
+          width: double.infinity,
+          height: Sizes.size64,
+          child: CommonButton(
+            btnText: cont.isFavorite == false ? '찜하기' : '취소하기',
+            btnBackgroundColor:
+                cont.isFavorite == false ? Colors.black87 : Colors.black38,
+            textColor: Colors.grey.shade200,
+            btnAction: () => cont.favoriteButtonOnPressed(),
+          )),
     );
   }
 

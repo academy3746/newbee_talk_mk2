@@ -61,7 +61,7 @@ class DetailCont extends GetxController {
   String get uid => _uid.value;
 
   /// Get Query Parameter From MapCont
-  void setState(FoodStoreModel model) {
+  void setStoreData(FoodStoreModel model) {
     _id.value = model.id!;
 
     _storeName.value = model.storeName;
@@ -79,15 +79,7 @@ class DetailCont extends GetxController {
   Future<void> favoriteButtonOnPressed() async {
     var status = await dto.fetchFavorite(storeId: id);
 
-    if (status.isNotEmpty) {
-      _isFavorite.value = true;
-
-      _deleteStore();
-    } else {
-      _isFavorite.value = false;
-
-      _upsertStore();
-    }
+    status.isNotEmpty ? _deleteStore() : _upsertStore();
 
     _isFavorite(!isFavorite);
   }

@@ -209,7 +209,7 @@ class MapCont extends GetxController {
                 btnAction: () {
                   DetailCont detailCont = DetailCont.to;
 
-                  detailCont.setState(model);
+                  detailCont.setStoreData(model);
 
                   AppRouter.detail().offAnd();
                 },
