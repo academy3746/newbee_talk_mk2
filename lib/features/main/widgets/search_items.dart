@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:newbee_talk_mk2/common/constant/date.dart';
 import 'package:newbee_talk_mk2/common/constant/gaps.dart';
 import 'package:newbee_talk_mk2/common/constant/sizes.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_text.dart';
+import 'package:newbee_talk_mk2/features/favorite/models/favorite.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/search_controller.dart';
 import 'package:newbee_talk_mk2/features/store/models/store.dart';
 
@@ -22,6 +24,8 @@ class _SearchItemsState extends State<SearchItems> {
     return FutureBuilder(
       future: cont.asyncFavorite(),
       builder: (context, snapshot) {
+        var items = snapshot.data;
+
         if (snapshot.hasError) {
           return const Center(
             child: CommonText(
@@ -38,19 +42,20 @@ class _SearchItemsState extends State<SearchItems> {
           );
         }
 
-        return ListView.separated(
-          itemBuilder: (context, index) {
-            var model = cont.searchList[index];
+        return Obx(
+          () => ListView.separated(
+            itemBuilder: (context, index) {
+              var model = cont.searchList[index];
 
-            cont.setStoreId(model.id!);
-
-            return _searchPageBody(
-              context,
-              model,
-            );
-          },
-          separatorBuilder: (context, index) => Gaps.v20,
-          itemCount: cont.searchList.length,
+              return _searchPageBody(
+                context,
+                model,
+                items!,
+              );
+            },
+            separatorBuilder: (context, index) => Gaps.v20,
+            itemCount: cont.searchList.length,
+          ),
         );
       },
     );
@@ -60,6 +65,7 @@ class _SearchItemsState extends State<SearchItems> {
   Widget _searchPageBody(
     BuildContext context,
     FoodStoreModel model,
+    List<FavoriteModel> items,
   ) {
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -80,19 +86,17 @@ class _SearchItemsState extends State<SearchItems> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Obx(
-            () => Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CommonText(
-                  textContent: model.storeName,
-                  textColor: Colors.black87,
-                  textSize: Sizes.size20,
-                  textWeight: FontWeight.w700,
-                ),
-                cont.favoriteIcon(),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CommonText(
+                textContent: model.storeName,
+                textColor: Colors.black87,
+                textSize: Sizes.size20,
+                textWeight: FontWeight.w700,
+              ),
+              _favoriteIcon(),
+            ],
           ),
           Gaps.v12,
           CommonText(
@@ -120,6 +124,23 @@ class _SearchItemsState extends State<SearchItems> {
           ),
         ],
       ),
+    );
+  }
+
+  /// Favorite Icon UI
+  Widget _favoriteIcon() {
+    if (cont.isFavorite == true) {
+      return const FaIcon(
+        FontAwesomeIcons.solidHeart,
+        color: Colors.pinkAccent,
+        size: Sizes.size18,
+      );
+    }
+
+    return const FaIcon(
+      FontAwesomeIcons.heart,
+      color: Colors.pinkAccent,
+      size: Sizes.size18,
     );
   }
 }

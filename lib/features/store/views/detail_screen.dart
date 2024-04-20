@@ -46,12 +46,14 @@ class _DetailScreenState extends State<DetailScreen> {
           vertical: Sizes.size16,
           horizontal: Sizes.size20,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _storeImage(context),
-            _formFieldArea(context),
-          ],
+        child: Obx(
+          () => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _storeImage(context),
+              _formFieldArea(context),
+            ],
+          ),
         ),
       ),
     );
@@ -132,18 +134,16 @@ class _DetailScreenState extends State<DetailScreen> {
 
   /// Favorite Button Area UI
   Widget _favoriteButton() {
-    return Obx(
-      () => SizedBox(
-          width: double.infinity,
-          height: Sizes.size64,
-          child: CommonButton(
-            btnText: cont.isFavorite == false ? '찜하기' : '취소하기',
-            btnBackgroundColor:
-                cont.isFavorite == false ? Colors.black87 : Colors.black38,
-            textColor: Colors.grey.shade200,
-            btnAction: () => cont.favoriteButtonOnPressed(),
-          )),
-    );
+    return SizedBox(
+        width: double.infinity,
+        height: Sizes.size64,
+        child: CommonButton(
+          btnText: cont.isFavorite == false ? '찜하기' : '취소하기',
+          btnBackgroundColor:
+              cont.isFavorite == false ? Colors.black87 : Colors.black38,
+          textColor: Colors.grey.shade200,
+          btnAction: () => cont.favoriteButtonOnPressed(),
+        ));
   }
 
   @override

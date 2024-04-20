@@ -77,11 +77,17 @@ class DetailCont extends GetxController {
 
   /// Favorite Button OnPressed
   Future<void> favoriteButtonOnPressed() async {
-    var status = await dto.fetchFavorite(storeId: id);
+    var status = await dto.getMyFavorite(storeId: id);
 
-    status.isNotEmpty ? _deleteStore() : _upsertStore();
+    if (status.isNotEmpty) {
+      _isFavorite.value = false;
 
-    _isFavorite(!isFavorite);
+      _deleteStore();
+    } else {
+      _isFavorite.value = true;
+
+      _upsertStore();
+    }
   }
 
   /// INSERT & UPDATE Store

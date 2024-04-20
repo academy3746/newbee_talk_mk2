@@ -12,6 +12,13 @@ class SupabaseService {
 
   factory SupabaseService() => _instance;
 
+  /// Get My UID
+  String getMyUid() {
+    var res = init.auth.currentUser!.id;
+
+    return res;
+  }
+
   /// SELECT * FROM `food_store` WHERE (1)
   Future<List<FoodStoreModel>>? fetchStoreInfo() async {
     List<FoodStoreModel> result = [];
@@ -45,17 +52,32 @@ class SupabaseService {
     return res;
   }
 
-  /// SELECT ~ FROM `favorite` ...
-  Future<List<FavoriteModel>> fetchFavorite({required int storeId}) async {
-    final favoriteMap = await init
-        .from('favorite')
-        .select()
-        .eq('food_store_id', storeId)
-        .eq('favorite_uid', init.auth.currentUser!.id);
+  /// SELECT * FROM `favorite` ...
+  Future<List<FavoriteModel>> fetchFavoriteList() async {
+    final favoriteMap =
+        await init.from('favorite').select().eq('favorite_uid', getMyUid());
 
     var res = favoriteMap
         .map(
           (data) => FavoriteModel.fromJson(data),
+        )
+        .toList();
+
+    return res;
+  }
+
+  /// Get My Favorite
+  Future<List<FavoriteModel>> getMyFavorite({
+    required int storeId,
+  }) async {
+    final favoriteMap = await init.from('favorite').select().eq(
+          'food_store_id',
+          storeId,
+        );
+
+    var res = favoriteMap
+        .map(
+          (e) => FavoriteModel.fromJson(e),
         )
         .toList();
 
@@ -67,18 +89,17 @@ class SupabaseService {
     await init.from('favorite').upsert(
           FavoriteModel(
             foodStoreId: storeId,
-            favoriteUid: init.auth.currentUser!.id,
+            favoriteUid: getMyUid(),
           ).toMap(),
         );
   }
 
   /// Delete Favorite Store
-  Future<void> deleteFavorite({required int storeId}) async {
-    await init
-        .from('favorite')
-        .delete()
-        .eq('food_store_id', storeId)
-        .eq('favorite_uid', init.auth.currentUser!.id);
+  void deleteFavorite({required int storeId}) {
+    init.from('favorite').delete().eq(
+          'food_store_id',
+          storeId,
+        );
   }
 
   /// Search by Keyword
