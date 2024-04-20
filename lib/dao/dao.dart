@@ -54,8 +54,10 @@ class SupabaseService {
 
   /// SELECT * FROM `favorite` ...
   Future<List<FavoriteModel>> fetchFavoriteList() async {
-    final favoriteMap =
-        await init.from('favorite').select().eq('favorite_uid', getMyUid());
+    final favoriteMap = await init.from('favorite').select().eq(
+          'favorite_uid',
+          getMyUid(),
+        );
 
     var res = favoriteMap
         .map(
@@ -70,10 +72,11 @@ class SupabaseService {
   Future<List<FavoriteModel>> getMyFavorite({
     required int storeId,
   }) async {
-    final favoriteMap = await init.from('favorite').select().eq(
-          'food_store_id',
-          storeId,
-        );
+    final favoriteMap = await init
+        .from('favorite')
+        .select()
+        .eq('food_store_id', storeId)
+        .eq('favorite_uid', getMyUid());
 
     var res = favoriteMap
         .map(
@@ -95,11 +98,12 @@ class SupabaseService {
   }
 
   /// Delete Favorite Store
-  void deleteFavorite({required int storeId}) {
-    init.from('favorite').delete().eq(
-          'food_store_id',
-          storeId,
-        );
+  Future<void> deleteFavorite({required int storeId}) async {
+    await init
+        .from('favorite')
+        .delete()
+        .eq('food_store_id', storeId)
+        .eq('favorite_uid', getMyUid());
   }
 
   /// Search by Keyword

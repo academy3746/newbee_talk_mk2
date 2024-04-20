@@ -79,19 +79,13 @@ class DetailCont extends GetxController {
   Future<void> favoriteButtonOnPressed() async {
     var status = await dto.getMyFavorite(storeId: id);
 
-    if (status.isNotEmpty) {
-      _isFavorite.value = false;
-
-      _deleteStore();
-    } else {
-      _isFavorite.value = true;
-
-      _upsertStore();
-    }
+    status.isNotEmpty == true ? _deleteStore() : _upsertStore();
   }
 
   /// INSERT & UPDATE Store
   void _upsertStore() {
+    _isFavorite.value = true;
+
     dto.upsertFavorite(storeId: id);
 
     Get.showSnackbar(
@@ -104,6 +98,8 @@ class DetailCont extends GetxController {
 
   /// DELETE Store
   void _deleteStore() {
+    _isFavorite.value = false;
+
     dto.deleteFavorite(storeId: id);
 
     Get.showSnackbar(
@@ -121,5 +117,14 @@ class DetailCont extends GetxController {
     );
 
     _uploaderName.value = userModel.name;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    dto.getMyFavorite(storeId: id);
+
+    isFavorite;
   }
 }
