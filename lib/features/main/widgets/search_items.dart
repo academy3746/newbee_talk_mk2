@@ -95,7 +95,7 @@ class _SearchItemsState extends State<SearchItems> {
                 textSize: Sizes.size20,
                 textWeight: FontWeight.w700,
               ),
-              _favoriteIcon(),
+              _favoriteIcon(model, items),
             ],
           ),
           Gaps.v12,
@@ -128,7 +128,18 @@ class _SearchItemsState extends State<SearchItems> {
   }
 
   /// Favorite Icon UI
-  Widget _favoriteIcon() {
+  Widget _favoriteIcon(
+    FoodStoreModel model,
+    List<FavoriteModel> items,
+  ) {
+    for (var item in items) {
+      if (model.id == item.foodStoreId) {
+        cont.setFavorite(true);
+
+        break;
+      }
+    }
+
     if (cont.isFavorite == true) {
       return const FaIcon(
         FontAwesomeIcons.solidHeart,

@@ -25,6 +25,8 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
 
     cont.getStoreUploader(context);
+
+    cont.myFavoriteStatus();
   }
 
   PreferredSizeWidget _buildAppBar() {

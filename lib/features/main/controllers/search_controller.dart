@@ -30,6 +30,11 @@ class SearchCont extends GetxController {
   /// Getter (_isFavorite)
   bool get isFavorite => _isFavorite.value;
 
+  /// Set State IsFavorite
+  void setFavorite(bool value) {
+    _isFavorite.value = value;
+  }
+
   /// Favorite Status
   Future<List<FavoriteModel>> asyncFavorite() async {
     var res = await dto.fetchFavoriteList();
@@ -47,6 +52,8 @@ class SearchCont extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
+    _isFavorite(false);
 
     dto.fetchFavoriteList();
   }

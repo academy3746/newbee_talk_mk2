@@ -88,22 +88,47 @@ class SupabaseService {
   }
 
   /// INSERT & UPDATE Favorite Store
-  Future<void> upsertFavorite({required int storeId}) async {
+  Future<void> upsertFavorite({
+    required int storeId,
+    bool? isFavorite,
+  }) async {
     await init.from('favorite').upsert(
           FavoriteModel(
             foodStoreId: storeId,
             favoriteUid: getMyUid(),
+            isFavorite: isFavorite,
           ).toMap(),
         );
   }
 
   /// Delete Favorite Store
-  Future<void> deleteFavorite({required int storeId}) async {
+  Future<void> deleteFavorite({
+    required int storeId,
+  }) async {
     await init
         .from('favorite')
         .delete()
         .eq('food_store_id', storeId)
         .eq('favorite_uid', getMyUid());
+  }
+
+  /// Get Favorite Status Value
+  Future<bool> favoriteStatus(int storeId) async {
+    var map = await init
+        .from('favorite')
+        .select()
+        .eq('food_store_id', storeId)
+        .eq('favorite_uid', getMyUid());
+
+    var model = map
+        .map(
+          (e) => FavoriteModel.fromJson(e),
+        )
+        .single;
+
+    var res = model.isFavorite;
+
+    return res!;
   }
 
   /// Search by Keyword
