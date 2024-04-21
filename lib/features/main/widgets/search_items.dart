@@ -42,20 +42,18 @@ class _SearchItemsState extends State<SearchItems> {
           );
         }
 
-        return Obx(
-          () => ListView.separated(
-            itemBuilder: (context, index) {
-              var model = cont.searchList[index];
+        return ListView.separated(
+          itemBuilder: (context, index) {
+            var model = cont.searchList[index];
 
-              return _searchPageBody(
-                context,
-                model,
-                items!,
-              );
-            },
-            separatorBuilder: (context, index) => Gaps.v20,
-            itemCount: cont.searchList.length,
-          ),
+            return _searchPageBody(
+              context,
+              model,
+              items!,
+            );
+          },
+          separatorBuilder: (context, index) => Gaps.v20,
+          itemCount: cont.searchList.length,
         );
       },
     );
@@ -134,24 +132,23 @@ class _SearchItemsState extends State<SearchItems> {
   ) {
     for (var item in items) {
       if (model.id == item.foodStoreId) {
-        cont.setFavorite(true);
+        cont.setFavorite(
+          item.foodStoreId,
+          true,
+        );
 
         break;
       }
     }
 
-    if (cont.isFavorite == true) {
-      return const FaIcon(
-        FontAwesomeIcons.solidHeart,
+    return Obx(
+      () => FaIcon(
+        cont.getFavorite(model.id!) == true
+            ? FontAwesomeIcons.solidHeart
+            : FontAwesomeIcons.heart,
         color: Colors.pinkAccent,
         size: Sizes.size18,
-      );
-    }
-
-    return const FaIcon(
-      FontAwesomeIcons.heart,
-      color: Colors.pinkAccent,
-      size: Sizes.size18,
+      ),
     );
   }
 }

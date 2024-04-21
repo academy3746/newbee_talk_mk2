@@ -16,7 +16,7 @@ class SearchCont extends GetxController {
   final _dto = SupabaseService();
 
   /// Favorite Status
-  final _isFavorite = false.obs;
+  final _favorite = <int, bool>{}.obs;
 
   /// Getter (_searchList)
   List<FoodStoreModel> get searchList => _searchList;
@@ -28,11 +28,18 @@ class SearchCont extends GetxController {
   SupabaseService get dto => _dto;
 
   /// Getter (_isFavorite)
-  bool get isFavorite => _isFavorite.value;
+  Map<int, bool> get favorite => _favorite;
 
-  /// Set State IsFavorite
-  void setFavorite(bool value) {
-    _isFavorite.value = value;
+  /// Set Favorite Value
+  void setFavorite(int storeId, bool value) {
+    _favorite[storeId] = value;
+  }
+
+  /// Set Favorite State in UI
+  bool? getFavorite(int storeId) {
+    var res = _favorite[storeId] ?? false;
+
+    return res;
   }
 
   /// Favorite Status
@@ -52,8 +59,6 @@ class SearchCont extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    _isFavorite(false);
 
     dto.fetchFavoriteList();
   }

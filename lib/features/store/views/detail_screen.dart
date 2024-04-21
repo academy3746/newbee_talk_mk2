@@ -25,8 +25,6 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
 
     cont.getStoreUploader(context);
-
-    cont.setMyFavorite();
   }
 
   PreferredSizeWidget _buildAppBar() {
@@ -128,25 +126,39 @@ class _DetailScreenState extends State<DetailScreen> {
           Gaps.v16,
 
           /// Favorite Button
-          _favoriteButton(),
+          _favoriteButton(context),
         ],
       ),
     );
   }
 
   /// Favorite Button Area UI
-  Widget _favoriteButton() {
-    return Obx(
-      () => SizedBox(
+  Widget _favoriteButton(BuildContext context) {
+    return FutureBuilder(
+      future: cont.asyncFavoriteList(),
+      builder: (context, snapshot) {
+        var items = snapshot.data ?? [];
+
+        for (var item in items) {
+          if (cont.id == item.foodStoreId) {
+            cont.setMyFavorite(true);
+
+            break;
+          }
+        }
+
+        return SizedBox(
           width: double.infinity,
           height: Sizes.size64,
           child: CommonButton(
             btnText: cont.getMyFavorite() == false ? '찜하기' : '취소하기',
             btnBackgroundColor:
-                cont.getMyFavorite() == false ? Colors.black87 : Colors.black38,
+            cont.getMyFavorite() == false ? Colors.black87 : Colors.black38,
             textColor: Colors.grey.shade200,
             btnAction: () => cont.favoriteButtonOnPressed(),
-          )),
+          ),
+        );
+      },
     );
   }
 

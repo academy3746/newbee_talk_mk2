@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newbee_talk_mk2/dao/dao.dart';
+import 'package:newbee_talk_mk2/features/favorite/models/favorite.dart';
 import 'package:newbee_talk_mk2/features/store/models/store.dart';
 
 class DetailCont extends GetxController {
@@ -60,11 +61,9 @@ class DetailCont extends GetxController {
   /// Getter (_uid)
   String get uid => _uid.value;
 
-  /// Favorite status from DB
-  Future<void> setMyFavorite() async {
-    var favorite = await dto.favoriteStatus(id);
-
-    _favorite[id] = favorite;
+  /// Set Favorite Value with UI
+  void setMyFavorite(bool value) {
+    _favorite[id] = value;
   }
 
   /// Update Favorite State UI
@@ -140,5 +139,19 @@ class DetailCont extends GetxController {
     );
 
     _uploaderName.value = userModel.name;
+  }
+
+  /// Async Favorite List
+  Future<List<FavoriteModel>> asyncFavoriteList() async {
+    var res = dto.getMyFavorite(storeId: id);
+
+    return res;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    dto.getMyFavorite(storeId: id);
   }
 }
