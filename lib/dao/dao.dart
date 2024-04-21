@@ -124,11 +124,12 @@ class SupabaseService {
         .map(
           (e) => FavoriteModel.fromJson(e),
         )
-        .single;
+        .toList()
+        .firstOrNull;
 
-    var res = model.isFavorite;
+    var res = model?.isFavorite ?? false;
 
-    return res!;
+    return res;
   }
 
   /// Search by Keyword

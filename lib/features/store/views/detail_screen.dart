@@ -26,7 +26,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
     cont.getStoreUploader(context);
 
-    cont.myFavoriteStatus();
+    cont.setMyFavorite();
   }
 
   PreferredSizeWidget _buildAppBar() {
@@ -48,14 +48,12 @@ class _DetailScreenState extends State<DetailScreen> {
           vertical: Sizes.size16,
           horizontal: Sizes.size20,
         ),
-        child: Obx(
-          () => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _storeImage(context),
-              _formFieldArea(context),
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _storeImage(context),
+            _formFieldArea(context),
+          ],
         ),
       ),
     );
@@ -90,62 +88,66 @@ class _DetailScreenState extends State<DetailScreen> {
 
   /// FormField Area
   Widget _formFieldArea(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Gaps.v16,
+    return Obx(
+      () => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Gaps.v16,
 
-        /// Store Address
-        const CommonText(
-          textContent: '플레이스 위치 (도로명 주소)',
-          textColor: Colors.black87,
-          textSize: Sizes.size20,
-          textWeight: FontWeight.w700,
-        ),
-        PlainText(content: cont.storeAddress),
-        Gaps.v16,
+          /// Store Address
+          const CommonText(
+            textContent: '플레이스 위치 (도로명 주소)',
+            textColor: Colors.black87,
+            textSize: Sizes.size20,
+            textWeight: FontWeight.w700,
+          ),
+          PlainText(content: cont.storeAddress),
+          Gaps.v16,
 
-        /// Store User
-        const CommonText(
-          textContent: '플레이스 공유자',
-          textColor: Colors.black87,
-          textSize: Sizes.size20,
-          textWeight: FontWeight.w700,
-        ),
-        PlainText(content: cont.uploaderName),
-        Gaps.v16,
+          /// Store User
+          const CommonText(
+            textContent: '플레이스 공유자',
+            textColor: Colors.black87,
+            textSize: Sizes.size20,
+            textWeight: FontWeight.w700,
+          ),
+          PlainText(content: cont.uploaderName),
+          Gaps.v16,
 
-        /// Store Info
-        const CommonText(
-          textContent: '플레이스 설명',
-          textColor: Colors.black87,
-          textSize: Sizes.size20,
-          textWeight: FontWeight.w700,
-        ),
-        PlainText(
-          content: cont.storeInfo,
-          height: Sizes.size300,
-        ),
-        Gaps.v16,
+          /// Store Info
+          const CommonText(
+            textContent: '플레이스 설명',
+            textColor: Colors.black87,
+            textSize: Sizes.size20,
+            textWeight: FontWeight.w700,
+          ),
+          PlainText(
+            content: cont.storeInfo,
+            height: Sizes.size300,
+          ),
+          Gaps.v16,
 
-        /// Favorite Button
-        _favoriteButton(),
-      ],
+          /// Favorite Button
+          _favoriteButton(),
+        ],
+      ),
     );
   }
 
   /// Favorite Button Area UI
   Widget _favoriteButton() {
-    return SizedBox(
-        width: double.infinity,
-        height: Sizes.size64,
-        child: CommonButton(
-          btnText: cont.isFavorite == false ? '찜하기' : '취소하기',
-          btnBackgroundColor:
-              cont.isFavorite == false ? Colors.black87 : Colors.black38,
-          textColor: Colors.grey.shade200,
-          btnAction: () => cont.favoriteButtonOnPressed(),
-        ));
+    return Obx(
+      () => SizedBox(
+          width: double.infinity,
+          height: Sizes.size64,
+          child: CommonButton(
+            btnText: cont.getMyFavorite() == false ? '찜하기' : '취소하기',
+            btnBackgroundColor:
+                cont.getMyFavorite() == false ? Colors.black87 : Colors.black38,
+            textColor: Colors.grey.shade200,
+            btnAction: () => cont.favoriteButtonOnPressed(),
+          )),
+    );
   }
 
   @override

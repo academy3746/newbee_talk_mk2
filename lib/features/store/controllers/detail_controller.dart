@@ -22,7 +22,7 @@ class DetailCont extends GetxController {
   final _storeImgUrl = Rxn<String>();
 
   /// Bookmark Status
-  final _isFavorite = false.obs;
+  final _favorite = <int, bool>{}.obs;
 
   /// Instances Data Transfer Object
   final _dto = SupabaseService();
@@ -49,7 +49,7 @@ class DetailCont extends GetxController {
   String? get storeImgUrl => _storeImgUrl.value;
 
   /// Getter (_bookMarkStatus)
-  bool get isFavorite => _isFavorite.value;
+  Map<int, bool> get favorite => _favorite;
 
   /// Getter (_dto)
   SupabaseService get dto => _dto;
@@ -59,6 +59,20 @@ class DetailCont extends GetxController {
 
   /// Getter (_uid)
   String get uid => _uid.value;
+
+  /// Favorite status from DB
+  Future<void> setMyFavorite() async {
+    var favorite = await dto.favoriteStatus(id);
+
+    _favorite[id] = favorite;
+  }
+
+  /// Update Favorite State UI
+  bool? getMyFavorite() {
+    var res = _favorite[id] ?? false;
+
+    return res;
+  }
 
   /// Get Query Parameter From MapCont
   void setStoreData(FoodStoreModel model) {
@@ -86,11 +100,13 @@ class DetailCont extends GetxController {
 
   /// INSERT & UPDATE Store
   void _upsertStore() {
-    _isFavorite.value = true;
+    var selected = _favorite[id];
+
+    _favorite[id] = true;
 
     dto.upsertFavorite(
       storeId: id,
-      isFavorite: isFavorite,
+      isFavorite: selected,
     );
 
     Get.showSnackbar(
@@ -103,7 +119,7 @@ class DetailCont extends GetxController {
 
   /// DELETE Store
   void _deleteStore() {
-    _isFavorite.value = false;
+    _favorite[id] = false;
 
     dto.deleteFavorite(
       storeId: id,
@@ -124,19 +140,5 @@ class DetailCont extends GetxController {
     );
 
     _uploaderName.value = userModel.name;
-  }
-
-  /// isFavorite status
-  Future<void> myFavoriteStatus() async {
-    var favorite = await dto.favoriteStatus(id);
-
-    _isFavorite.value = favorite;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-
-    _isFavorite.value = false;
   }
 }
