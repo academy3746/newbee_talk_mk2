@@ -83,7 +83,7 @@ class _SearchItemsState extends State<SearchItems> {
 
         detail.setStoreData(model);
 
-        AppRouter.detail().to();
+        AppRouter.detail().offAnd();
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
