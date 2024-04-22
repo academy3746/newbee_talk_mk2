@@ -26,21 +26,31 @@ class _SearchItemsState extends State<SearchItems> {
     return FutureBuilder(
       future: cont.asyncFavorite(),
       builder: (context, snapshot) {
-        var items = snapshot.data;
+        var items = snapshot.data ?? [];
 
         if (snapshot.hasError) {
-          return const Center(
+          return Center(
             child: CommonText(
-              textContent: '찾으시는 검색 결과가 없네요... 😭',
+              textContent: snapshot.error.toString(),
               textColor: Colors.black87,
-              textSize: Sizes.size24,
+              textSize: Sizes.size16,
             ),
           );
         }
 
-        if (!snapshot.hasData) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator.adaptive(),
+          );
+        }
+
+        if (cont.searchList.isEmpty) {
+          return const Center(
+            child: CommonText(
+              textContent: '찾으시는 검색 결과가 없네요... 😭',
+              textColor: Colors.black87,
+              textSize: Sizes.size16,
+            ),
           );
         }
 
@@ -51,7 +61,7 @@ class _SearchItemsState extends State<SearchItems> {
             return _searchPageBody(
               context,
               model,
-              items!,
+              items,
             );
           },
           separatorBuilder: (context, index) => Gaps.v20,

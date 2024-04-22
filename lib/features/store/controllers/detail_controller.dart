@@ -67,8 +67,8 @@ class DetailCont extends GetxController {
   }
 
   /// Update Favorite State UI
-  bool? getMyFavorite() {
-    var res = _favorite[id] ?? false;
+  bool? getMyFavorite(int storeId) {
+    var res = _favorite[storeId] ?? false;
 
     return res;
   }
@@ -90,20 +90,16 @@ class DetailCont extends GetxController {
 
   /// Favorite Button OnPressed
   Future<void> favoriteButtonOnPressed() async {
-    var status = await dto.getMyFavorite(
-      storeId: id,
-    );
+    var status = await dto.getMyFavorite(storeId: id);
 
     status.isNotEmpty == true ? _deleteStore() : _upsertStore();
   }
 
   /// INSERT & UPDATE Store
-  void _upsertStore() {
+  Future<void> _upsertStore() async {
     var selected = _favorite[id];
 
-    _favorite[id] = true;
-
-    dto.upsertFavorite(
+    await dto.upsertFavorite(
       storeId: id,
       isFavorite: selected,
     );
@@ -111,25 +107,27 @@ class DetailCont extends GetxController {
     Get.showSnackbar(
       const GetSnackBar(
         message: '플레이스를 찜했어요!',
-        duration: Duration(seconds: 2),
+        duration: Duration(seconds: 1),
       ),
     );
+
+    _favorite[id] = true;
   }
 
   /// DELETE Store
-  void _deleteStore() {
-    _favorite[id] = false;
-
-    dto.deleteFavorite(
+  Future<void> _deleteStore() async {
+    await dto.deleteFavorite(
       storeId: id,
     );
 
     Get.showSnackbar(
       const GetSnackBar(
         message: '플레이스 찜하기를 취소했어요!',
-        duration: Duration(seconds: 2),
+        duration: Duration(seconds: 1),
       ),
     );
+
+    _favorite[id] = false;
   }
 
   /// Get Store Uploader Name
@@ -143,15 +141,8 @@ class DetailCont extends GetxController {
 
   /// Async Favorite List
   Future<List<FavoriteModel>> asyncFavoriteList() async {
-    var res = dto.getMyFavorite(storeId: id);
+    var res = await dto.getMyFavorite(storeId: id);
 
     return res;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-
-    dto.getMyFavorite(storeId: id);
   }
 }

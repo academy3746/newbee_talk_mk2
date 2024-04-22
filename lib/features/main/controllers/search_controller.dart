@@ -55,11 +55,4 @@ class SearchCont extends GetxController {
   void setSearchKeyWord(List<FoodStoreModel> list) {
     _searchList.value = list;
   }
-
-  @override
-  void onInit() {
-    super.onInit();
-
-    dto.fetchFavoriteList();
-  }
 }
