@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:newbee_talk_mk2/dao/dao.dart';
-import 'package:newbee_talk_mk2/features/favorite/models/favorite.dart';
+import 'package:newbee_talk_mk2/features/main/models/favorite.dart';
 import 'package:newbee_talk_mk2/features/store/models/store.dart';
 
 class SearchCont extends GetxController {

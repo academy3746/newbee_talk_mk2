@@ -1,5 +1,5 @@
 import 'package:newbee_talk_mk2/features/auth/models/user.dart';
-import 'package:newbee_talk_mk2/features/favorite/models/favorite.dart';
+import 'package:newbee_talk_mk2/features/main/models/favorite.dart';
 import 'package:newbee_talk_mk2/features/store/models/store.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -140,6 +140,22 @@ class SupabaseService {
         );
 
     var res = foodMap
+        .map(
+          (data) => FoodStoreModel.fromJson(data),
+        )
+        .toList();
+
+    return res;
+  }
+
+  /// Fetch My Favorite Store
+  Future<List<FoodStoreModel>> fetchMyFavoriteStore() async {
+    final storeMap = await init
+        .from('food_store')
+        .select('*, favorite!inner(*)')
+        .eq('favorite.favorite_uid', getMyUid());
+
+    var res = storeMap
         .map(
           (data) => FoodStoreModel.fromJson(data),
         )

@@ -6,25 +6,24 @@ import 'package:newbee_talk_mk2/common/constant/date.dart';
 import 'package:newbee_talk_mk2/common/constant/gaps.dart';
 import 'package:newbee_talk_mk2/common/constant/sizes.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_text.dart';
-import 'package:newbee_talk_mk2/features/main/models/favorite.dart';
-import 'package:newbee_talk_mk2/features/main/controllers/search_controller.dart';
+import 'package:newbee_talk_mk2/features/main/controllers/like_controller.dart';
 import 'package:newbee_talk_mk2/features/store/controllers/detail_controller.dart';
 import 'package:newbee_talk_mk2/features/store/models/store.dart';
 
-class SearchItems extends StatefulWidget {
-  const SearchItems({super.key});
+class LikeItems extends StatefulWidget {
+  const LikeItems({super.key});
 
   @override
-  State<SearchItems> createState() => _SearchItemsState();
+  State<LikeItems> createState() => _LikeItemsState();
 }
 
-class _SearchItemsState extends State<SearchItems> {
-  final cont = SearchCont.to;
+class _LikeItemsState extends State<LikeItems> {
+  final cont = LikeCont.to;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: cont.asyncFavorite(),
+      future: cont.asyncFoodStoreBuilder(),
       builder: (context, snapshot) {
         var items = snapshot.data ?? [];
 
@@ -44,10 +43,10 @@ class _SearchItemsState extends State<SearchItems> {
           );
         }
 
-        if (cont.searchList.isEmpty) {
+        if (cont.items.isEmpty) {
           return const Center(
             child: CommonText(
-              textContent: '찾으시는 검색 결과가 없네요... 😭',
+              textContent: '아직 찜한 플레이스가 없네요... 😭',
               textColor: Colors.black87,
               textSize: Sizes.size16,
             ),
@@ -55,35 +54,29 @@ class _SearchItemsState extends State<SearchItems> {
         }
 
         return ListView.separated(
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
-            var model = cont.searchList[index];
+            var model = items[index];
 
-            return _searchPageBody(
-              context,
-              model,
-              items,
-            );
+            return _buildFavoriteList(model);
           },
           separatorBuilder: (context, index) => Gaps.v20,
-          itemCount: cont.searchList.length,
+          itemCount: cont.items.length,
         );
       },
     );
   }
 
-  /// Search Page Body
-  Widget _searchPageBody(
-    BuildContext context,
-    FoodStoreModel model,
-    List<FavoriteModel> items,
-  ) {
+  /// Build Favorite Store List UI
+  Widget _buildFavoriteList(FoodStoreModel model) {
     return GestureDetector(
       onTap: () {
         final detail = DetailCont.to;
 
         detail.setStoreData(model);
 
-        AppRouter.detail().offAnd();
+        AppRouter.detail().to();
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -113,7 +106,7 @@ class _SearchItemsState extends State<SearchItems> {
                   textSize: Sizes.size20,
                   textWeight: FontWeight.w700,
                 ),
-                _favoriteIcon(model, items),
+                _favoriteStatus(model),
               ],
             ),
             Gaps.v12,
@@ -146,15 +139,12 @@ class _SearchItemsState extends State<SearchItems> {
     );
   }
 
-  /// Favorite Icon UI
-  Widget _favoriteIcon(
-    FoodStoreModel model,
-    List<FavoriteModel> items,
-  ) {
-    for (var item in items) {
-      if (model.id == item.foodStoreId) {
+  /// Favorite Status Indicator UI
+  Widget _favoriteStatus(FoodStoreModel model) {
+    for (var item in cont.items) {
+      if (item.id == model.id) {
         cont.setFavorite(
-          item.foodStoreId,
+          item.id!,
           true,
         );
 
@@ -164,7 +154,7 @@ class _SearchItemsState extends State<SearchItems> {
 
     return Obx(
       () => FaIcon(
-        cont.getFavorite(model.id!) == true
+        cont.isFavorite(model.id!) == true
             ? FontAwesomeIcons.solidHeart
             : FontAwesomeIcons.heart,
         color: Colors.pinkAccent,
