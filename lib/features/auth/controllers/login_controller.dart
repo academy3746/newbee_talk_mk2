@@ -57,6 +57,10 @@ class LoginCont extends GetxController {
       password: password,
     );
 
+    idCont.clear();
+
+    passwordCont.clear();
+
     if (res.user != null) {
       var snackbar = AppSnackbar(
         msg: '오늘 하루도 화이팅 💕',

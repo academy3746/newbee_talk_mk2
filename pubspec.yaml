@@ -57,7 +57,3 @@ flutter:
         - asset: assets/fonts/pretendard_static/Pretendard-Regular.ttf
         - asset: assets/fonts/pretendard_static/Pretendard-SemiBold.ttf
         - asset: assets/fonts/pretendard_static/Pretendard-Thin.ttf
-
-    - family: PretendardVariable
-      fonts:
-        - asset: assets/fonts/pretendard_variable/PretendardVariable.ttf

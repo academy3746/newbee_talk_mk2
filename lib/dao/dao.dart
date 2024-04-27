@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:newbee_talk_mk2/app_router.dart';
 import 'package:newbee_talk_mk2/features/auth/models/user.dart';
 import 'package:newbee_talk_mk2/features/main/models/favorite.dart';
 import 'package:newbee_talk_mk2/features/store/models/store.dart';
@@ -6,15 +8,45 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class SupabaseService {
   static SupabaseClient init = Supabase.instance.client;
 
-  SupabaseService._internal();
+  SupabaseService._();
 
-  static final SupabaseService _instance = SupabaseService._internal();
+  static final SupabaseService _internal = SupabaseService._();
 
-  factory SupabaseService() => _instance;
+  factory SupabaseService() => _internal;
 
   /// Get My UID
   String getMyUid() {
     var res = init.auth.currentUser!.id;
+
+    return res;
+  }
+
+  /// Logout Current User
+  Future<void> logout() async {
+    await init.auth.signOut();
+
+    AppRouter.login().offAll();
+
+    Get.showSnackbar(
+      const GetSnackBar(
+        message: '정상적으로 로그아웃 되었습니다!',
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  /// Fetch Current User Info
+  Future<UserModel> fetchUserInfo() async {
+    final userMap = await init.from('user').select().eq(
+          'uid',
+          getMyUid(),
+        );
+
+    var res = userMap
+        .map(
+          (data) => UserModel.fromJson(data),
+        )
+        .single;
 
     return res;
   }

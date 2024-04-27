@@ -5,6 +5,7 @@ import 'package:newbee_talk_mk2/features/main/controllers/like_controller.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/main_controller.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/map_controller.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/search_controller.dart';
+import 'package:newbee_talk_mk2/features/main/controllers/user_info_controller.dart';
 import 'package:newbee_talk_mk2/features/splash/controllers/splash_controller.dart';
 import 'package:newbee_talk_mk2/features/store/controllers/detail_controller.dart';
 import 'package:newbee_talk_mk2/features/store/controllers/edit_controller.dart';
@@ -32,6 +33,9 @@ class GetPut {
 
     /// [Main] Like Controller
     Get.put(LikeCont());
+
+    /// [Main] UserInfo Controller
+    Get.put(UserInfoCont());
 
     /// [Store] Edit Controller
     Get.put(EditCont());
