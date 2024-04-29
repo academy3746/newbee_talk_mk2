@@ -44,6 +44,7 @@ class _MainScreenState extends State<MainScreen> {
     return SizedBox(
       height: Sizes.size64,
       child: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         currentIndex: cont.screenIndex,
         backgroundColor: Colors.black87,
         showSelectedLabels: true,
@@ -53,15 +54,38 @@ class _MainScreenState extends State<MainScreen> {
         onTap: (int value) => cont.screenSelected(value),
         items: const [
           BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.map),
+            icon: FaIcon(
+              FontAwesomeIcons.house,
+              size: Sizes.size20,
+            ),
+            label: 'HOME',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.map,
+              size: Sizes.size20,
+            ),
             label: 'MAP',
           ),
           BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.heart),
+            icon: FaIcon(
+              FontAwesomeIcons.message,
+              size: Sizes.size20,
+            ),
+            label: 'CHAT',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.heart,
+              size: Sizes.size20,
+            ),
             label: 'LIKE',
           ),
           BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.user),
+            icon: FaIcon(
+              FontAwesomeIcons.user,
+              size: Sizes.size20,
+            ),
             label: 'MY',
           ),
         ],

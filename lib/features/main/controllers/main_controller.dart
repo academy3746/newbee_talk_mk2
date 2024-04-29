@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newbee_talk_mk2/common/widgets/back_handler_button.dart';
+import 'package:newbee_talk_mk2/features/main/views/chat_screen.dart';
+import 'package:newbee_talk_mk2/features/main/views/home_screen.dart';
 import 'package:newbee_talk_mk2/features/main/views/like_screen.dart';
 import 'package:newbee_talk_mk2/features/main/views/map_screen.dart';
 import 'package:newbee_talk_mk2/features/main/views/user_info_screen.dart';
@@ -38,7 +40,9 @@ class MainCont extends GetxController {
     backHandlerButton;
 
     _screenList([
+      const HomeScreen(),
       const MapScreen(),
+      const ChatScreen(),
       const LikeScreen(),
       const UserInfoScreen(),
     ]);
