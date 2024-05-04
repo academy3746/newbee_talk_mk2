@@ -50,7 +50,7 @@ class HomeCont extends GetxController {
   }
 
   /// Fetch More Data
-  Future<void> fetchMoreUsers() async {
+  Future<void> _fetchMoreUsers() async {
     var users = await SupabaseService().fetchProfiles();
 
     if (users.isNotEmpty) {
@@ -64,11 +64,11 @@ class HomeCont extends GetxController {
   void onInit() async {
     super.onInit();
 
-    await fetchMoreUsers();
+    await _fetchMoreUsers();
 
-    scroll.addListener(() {
+    scroll.addListener(() async {
       if (scroll.position.pixels == scroll.position.maxScrollExtent) {
-        fetchMoreUsers();
+        await _fetchMoreUsers();
       }
     });
   }
