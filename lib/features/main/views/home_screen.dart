@@ -75,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }
 
         return GridView.builder(
+          controller: cont.scroll,
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
