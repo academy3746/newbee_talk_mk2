@@ -6,6 +6,7 @@ import 'package:newbee_talk_mk2/common/widgets/common_app_bar.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_button.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_text.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_text_field.dart';
+import 'package:newbee_talk_mk2/common/widgets/image_editor.dart';
 import 'package:newbee_talk_mk2/features/store/controllers/edit_controller.dart';
 import 'package:newbee_talk_mk2/features/store/views/post_screen.dart';
 
@@ -46,10 +47,27 @@ class _EditScreenState extends State<EditScreen> {
             () => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                cont.upload.showImageUploader(
+                /// Handling Image
+                ImageEditor().uploadImage(
                   context: context,
-                  child: _buildStoreImage(context),
+                  imageWidget: _buildStoreImage(context),
+                  takePhoto: () {
+                    Get.back();
+
+                    cont.takePhoto();
+                  },
+                  selectImage: () {
+                    Get.back();
+
+                    cont.selectImage();
+                  },
+                  deleteImage: () {
+                    Get.back();
+
+                    cont.deleteImage();
+                  }
                 ),
+
                 _editFormField(),
               ],
             ),

@@ -6,6 +6,7 @@ import 'package:newbee_talk_mk2/common/widgets/common_app_bar.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_button.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_text.dart';
 import 'package:newbee_talk_mk2/common/widgets/common_text_field.dart';
+import 'package:newbee_talk_mk2/common/widgets/image_editor.dart';
 import 'package:newbee_talk_mk2/features/auth/controllers/sign_up_controller.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -46,9 +47,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 /// Handling Image
-                cont.uploader.showImageUploader(
+                ImageEditor().uploadImage(
                   context: context,
-                  child: _buildProfile(context),
+                  imageWidget: _buildProfile(context),
+                  takePhoto: () {
+                    Get.back();
+
+                    cont.takePhoto();
+                  },
+                  selectImage: () {
+                    Get.back();
+
+                    cont.selectImage();
+                  },
+                  deleteImage: () {
+                    Get.back();
+
+                    cont.deleteImage();
+                  },
                 ),
 
                 /// FormField

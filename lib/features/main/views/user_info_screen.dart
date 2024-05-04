@@ -107,18 +107,19 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
       ),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(360),
-            child: model.profileUrl != null
+          CircleAvatar(
+            backgroundColor: Colors.black87,
+            child: model.profileUrl != null && model.profileUrl != ""
                 ? Image.network(
                     model.profileUrl!,
                     width: Sizes.size56,
                     height: Sizes.size56,
                     fit: BoxFit.cover,
                   )
-                : const FaIcon(
+                : FaIcon(
                     FontAwesomeIcons.user,
-                    size: Sizes.size56,
+                    color: Colors.grey.shade200,
+                    size: Sizes.size18,
                   ),
           ),
           Gaps.h10,

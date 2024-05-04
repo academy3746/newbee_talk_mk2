@@ -25,7 +25,7 @@ class SupabaseService {
   Future<void> logout() async {
     await init.auth.signOut();
 
-    AppRouter.login().offAll();
+    AppRouter.login().off();
 
     Get.showSnackbar(
       const GetSnackBar(
