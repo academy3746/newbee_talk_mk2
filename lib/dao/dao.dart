@@ -195,4 +195,20 @@ class SupabaseService {
 
     return res;
   }
+
+  /// Fetch All User Info For Chat
+  Future<List<UserModel>> fetchProfiles() async {
+    final profileMap = await init.from('user').select().neq(
+          'uid',
+          getMyUid(),
+        );
+
+    var res = profileMap
+        .map(
+          (data) => UserModel.fromJson(data),
+        )
+        .toList();
+
+    return res;
+  }
 }
