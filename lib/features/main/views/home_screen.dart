@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   PreferredSizeWidget _buildAppBar() {
     return const CommonAppBar(
-      title: '뉴비톡톡',
+      title: '친구',
       implyLeading: false,
       backgroundColor: Colors.white,
       iconColor: Colors.black87,

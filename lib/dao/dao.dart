@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:newbee_talk_mk2/app_router.dart';
 import 'package:newbee_talk_mk2/features/auth/models/user.dart';
+import 'package:newbee_talk_mk2/features/chat/models/chat_message.dart';
+import 'package:newbee_talk_mk2/features/chat/models/chat_room.dart';
 import 'package:newbee_talk_mk2/features/main/models/favorite.dart';
 import 'package:newbee_talk_mk2/features/store/models/store.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -208,6 +210,39 @@ class SupabaseService {
           (data) => UserModel.fromJson(data),
         )
         .toList();
+
+    return res;
+  }
+
+  /// Fetch My Chat Rooms Including Last Chat Messages
+  Future<List<ChatMessageModel>> fetchChatRooms() async {
+    List<ChatMessageModel> res = [];
+
+    final roomMap = await init.from('chat_room').select();
+
+    var rooms = roomMap
+        .map(
+          (data) => ChatRoomModel.fromJson(data),
+        )
+        .toList();
+
+    for (var room in rooms) {
+      final messageMap = await init
+          .from('chat_message')
+          .select()
+          .eq('chat_room_id', room.id!)
+          .order('created_at', ascending: true);
+
+      if (messageMap.isEmpty) continue;
+
+      var messages = messageMap
+          .map(
+            (data) => ChatMessageModel.fromJson(data),
+          )
+          .toList();
+
+      res.add(messages.last);
+    }
 
     return res;
   }

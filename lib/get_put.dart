@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:newbee_talk_mk2/features/auth/controllers/login_controller.dart';
 import 'package:newbee_talk_mk2/features/auth/controllers/sign_up_controller.dart';
+import 'package:newbee_talk_mk2/features/main/controllers/chat_controller.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/home_controller.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/like_controller.dart';
 import 'package:newbee_talk_mk2/features/main/controllers/main_controller.dart';
@@ -40,6 +41,9 @@ class GetPut {
 
     /// [Main] Home Controller
     Get.put(HomeCont());
+
+    /// [Main] Chat Controller
+    Get.put(ChatCont());
 
     /// [Store] Edit Controller
     Get.put(EditCont());

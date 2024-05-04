@@ -20,7 +20,7 @@ class ChatRoomModel {
   factory ChatRoomModel.fromJson(Map<String, dynamic> data) {
     return ChatRoomModel(
       id: data['id'],
-      membersUid: data['members_uid'],
+      membersUid: List<String>.from(data['members_uid']),
       createdAt: DateTime.parse(data['created_at']),
     );
   }
