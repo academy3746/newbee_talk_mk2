@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
+import 'package:newbee_talk_mk2/app_router.dart';
 import 'package:newbee_talk_mk2/dao/dao.dart';
 import 'package:newbee_talk_mk2/features/auth/models/user.dart';
+import 'package:newbee_talk_mk2/features/chat/controllers/chat_room_controller.dart';
 
 class HomeCont extends GetxController {
   static HomeCont get to => Get.find<HomeCont>();
@@ -16,5 +18,21 @@ class HomeCont extends GetxController {
     var res = await dto.fetchProfiles();
 
     return res;
+  }
+
+  /// Navigate To ChatRoom
+  Future enterChatRoom(String otherUid, UserModel userModel) async {
+    final chatCont = ChatRoomCont.to;
+
+    final chatRoomModel = await SupabaseService().fetchOrInsertChatRoom(
+      otherUid,
+    );
+
+    chatCont.setRecords((
+      chatRoomModel,
+      userModel,
+    ));
+
+    AppRouter.chat().to();
   }
 }

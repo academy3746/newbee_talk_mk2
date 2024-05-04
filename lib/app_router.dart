@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newbee_talk_mk2/features/auth/views/login_screen.dart';
 import 'package:newbee_talk_mk2/features/auth/views/sign_up_screen.dart';
+import 'package:newbee_talk_mk2/features/chat/views/chat_room_screen.dart';
 import 'package:newbee_talk_mk2/features/main/views/main_screen.dart';
 import 'package:newbee_talk_mk2/features/main/views/search_screen.dart';
 import 'package:newbee_talk_mk2/features/splash/views/splash_screen.dart';
@@ -28,6 +29,7 @@ class AppRouter {
         EditScreen.routeName: const EditScreen(),
         PostScreen.routeName: const PostScreen(),
         DetailScreen.routeName: const DetailScreen(),
+        ChatRoomScreen.routeName: const ChatRoomScreen(),
       };
 
   static List<GetPage> get pagesList => pages.entries
@@ -52,6 +54,8 @@ class AppRouter {
   factory AppRouter.edit() => AppRouter(EditScreen.routeName);
 
   factory AppRouter.detail() => AppRouter(DetailScreen.routeName);
+
+  factory AppRouter.chat() => AppRouter(ChatRoomScreen.routeName);
 
   /// Navigation.pushNamed()
   void to({dynamic arguments}) {

@@ -84,9 +84,15 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           itemCount: profiles.length,
           itemBuilder: (context, index) {
-            var model = profiles[index];
+            var userModel = profiles[index];
 
-            return _buildSingleProfile(model);
+            return GestureDetector(
+              onTap: () => cont.enterChatRoom(
+                userModel.uid,
+                userModel,
+              ),
+              child: _buildSingleProfile(userModel),
+            );
           },
         );
       },
@@ -94,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   /// 단일 사용자 프로필 UI
-  Widget _buildSingleProfile(UserModel model) {
+  Widget _buildSingleProfile(UserModel userModel) {
     return Container(
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(
@@ -112,9 +118,9 @@ class _HomeScreenState extends State<HomeScreen> {
             alignment: Alignment.center,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(Sizes.size10),
-              child: model.profileUrl != null && model.profileUrl != ""
+              child: userModel.profileUrl != null && userModel.profileUrl != ""
                   ? Image.network(
-                      model.profileUrl!,
+                      userModel.profileUrl!,
                       width: double.infinity,
                       height: double.infinity,
                       fit: BoxFit.cover,
@@ -140,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: CommonText(
-                textContent: model.name,
+                textContent: userModel.name,
                 textColor: Colors.grey.shade200,
                 textSize: Sizes.size20,
                 textWeight: FontWeight.w700,
