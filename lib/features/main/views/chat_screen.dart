@@ -18,12 +18,12 @@ class _ChatScreenState extends State<ChatScreen> {
   final cont = ChatCont.to;
 
   PreferredSizeWidget _buildAppBar() {
-    return const CommonAppBar(
+    return CommonAppBar(
       title: '채팅',
       implyLeading: false,
-      backgroundColor: Colors.white,
-      iconColor: Colors.black87,
-      fontColor: Colors.black87,
+      backgroundColor: Colors.black87,
+      iconColor: Colors.grey.shade200,
+      fontColor: Colors.grey.shade200,
     );
   }
 

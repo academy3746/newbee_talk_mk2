@@ -278,4 +278,18 @@ class SupabaseService {
         .toList()
         .single;
   }
+
+  /// Fetch Chat Messages
+  Stream<List<Map<String, dynamic>>> fetchChatMessages({
+    required String uid,
+    required int chatRoomId,
+  }) {
+    final res = init
+        .from('chat_message')
+        .stream(primaryKey: ['id'])
+        .eq('chat_room_id', chatRoomId)
+        .order('created_at', ascending: true);
+
+    return res;
+  }
 }
