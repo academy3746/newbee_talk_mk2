@@ -68,9 +68,12 @@ class _ChatScreenState extends State<ChatScreen> {
           itemBuilder: (context, index) {
             var model = rooms[index];
 
-            return _buildSingleChatRoom(
-              model,
-              index,
+            return GestureDetector(
+              onTap: () => cont.enterCurrentChatRoom(model.chatRoomId),
+              child: _buildSingleChatRoom(
+                model,
+                index,
+              ),
             );
           },
         );
@@ -96,8 +99,8 @@ class _ChatScreenState extends State<ChatScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            width: Sizes.size58,
-            height: Sizes.size58,
+            width: Sizes.size48,
+            height: Sizes.size48,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(360),
               child: model.profileUrl != null && model.profileUrl != ""

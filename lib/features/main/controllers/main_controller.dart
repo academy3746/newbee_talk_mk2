@@ -10,7 +10,7 @@ import 'package:newbee_talk_mk2/features/main/views/user_info_screen.dart';
 class MainCont extends GetxController {
   static MainCont get to => Get.find<MainCont>();
 
-  /// Instances BackHandlerButton Class
+  /// Instances BackHandlerButton Widget
   final _backHandlerButton = BackHandlerButton();
 
   /// Screen List
@@ -36,8 +36,6 @@ class MainCont extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    backHandlerButton;
 
     _screenList([
       const HomeScreen(),

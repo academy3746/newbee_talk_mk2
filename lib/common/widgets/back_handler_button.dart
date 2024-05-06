@@ -8,7 +8,7 @@ class BackHandlerButton {
     DateTime now = DateTime.now();
 
     if (lastPressed == null ||
-        now.difference(lastPressed!) > const Duration(seconds: 3)) {
+        now.difference(lastPressed!) > const Duration(seconds: 2)) {
       lastPressed = now;
 
       Fluttertoast.showToast(

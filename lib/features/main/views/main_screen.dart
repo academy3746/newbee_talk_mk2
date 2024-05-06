@@ -21,10 +21,12 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final back = cont.backHandlerButton;
+
     return WillPopScope(
       onWillPop: () {
-        if (cont.backHandlerButton != null) {
-          return cont.backHandlerButton!.onWillPop();
+        if (back != null) {
+          return back.onWillPop();
         }
 
         return Future.value(false);

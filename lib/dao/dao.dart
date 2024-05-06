@@ -323,4 +323,36 @@ class SupabaseService {
           ).toMap(),
         );
   }
+
+  /// Encounter Current Chat Room
+  Future<ChatRoomModel> encounterCurrentChatRoom(int chatRoomId) async {
+    final roomMap = await init.from('chat_room').select().eq(
+          'id',
+          chatRoomId,
+        );
+
+    var res = roomMap
+        .map(
+          (data) => ChatRoomModel.fromJson(data),
+        )
+        .single;
+
+    return res;
+  }
+
+  /// Fetch Another User
+  Future<UserModel> fetchAnotherUser(String otherUid) async {
+    final userMap = await init.from('user').select().eq(
+          'uid',
+          otherUid,
+        );
+
+    var res = userMap
+        .map(
+          (data) => UserModel.fromJson(data),
+        )
+        .single;
+
+    return res;
+  }
 }
