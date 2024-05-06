@@ -30,28 +30,26 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   }
 
   Widget _buildPageBody(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      child: Container(
-        margin: const EdgeInsets.symmetric(
-          vertical: Sizes.size16,
-          horizontal: Sizes.size20,
-        ),
-        child: Column(
-          children: [
-            /// 오늘 날짜
-            Center(
-              child: CommonText(
-                textContent: cont.currentTime(),
-                textColor: Colors.black87,
-                textSize: Sizes.size12,
-              ),
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        vertical: Sizes.size16,
+        horizontal: Sizes.size20,
+      ),
+      child: Column(
+        children: [
+          /// 오늘 날짜
+          Center(
+            child: CommonText(
+              textContent: cont.currentTime(),
+              textColor: Colors.black87,
+              textSize: Sizes.size12,
             ),
-            Gaps.v20,
+          ),
+          Gaps.v20,
 
-            /// 채팅 영역
-            StreamBuilder(
+          /// 채팅 영역
+          Expanded(
+            child: StreamBuilder(
               stream: cont.streamChatMessages(),
               builder: (context, snapshot) {
                 var chatList = snapshot.data
@@ -71,13 +69,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   );
                 }
 
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  );
-                }
-
-                return ListView.separated(
+                return ListView.builder(
+                  controller: cont.onScroll,
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
@@ -85,13 +78,12 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
 
                     return _buildChatMessages(model);
                   },
-                  separatorBuilder: (context, index) => Gaps.v24,
                   itemCount: chatList.length,
                 );
               },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -240,9 +232,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               ),
             ),
             IconButton(
-              onPressed: () {
-                // TODO: Complete this submit logic later
-              },
+              onPressed: () => cont.sendDM(),
               icon: FaIcon(
                 FontAwesomeIcons.paperPlane,
                 color: Colors.grey.shade200,
@@ -259,10 +249,11 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
 
   @override
   Widget build(BuildContext context) {
+    cont.keyboardOnScroll(context);
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
         appBar: _buildAppBar(),
         body: _buildPageBody(context),

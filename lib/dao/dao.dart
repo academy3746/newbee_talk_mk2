@@ -292,4 +292,35 @@ class SupabaseService {
 
     return res;
   }
+
+  /// Fetch My User Info
+  Future<UserModel> _fetchMyUserInfo() async {
+    final userMap = await init.from('user').select().eq(
+          'uid',
+          getMyUid(),
+        );
+
+    var res = userMap
+        .map(
+          (data) => UserModel.fromJson(data),
+        )
+        .single;
+
+    return res;
+  }
+
+  /// Send Direct Messages
+  Future<void> sendDirectMessage(String message, int chatRoomId) async {
+    var userModel = await _fetchMyUserInfo();
+
+    await init.from('chat_message').insert(
+          ChatMessageModel(
+            message: message,
+            uid: userModel.uid,
+            profileUrl: userModel.profileUrl ?? '',
+            chatRoomId: chatRoomId,
+            name: userModel.name,
+          ).toMap(),
+        );
+  }
 }
